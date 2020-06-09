@@ -1,4 +1,14 @@
 ## Android Intent Chooser ##
 
-#### References ####
-- [Stackoverflow](https://stackoverflow.com/a/59645780)
+Pick a file in android.  
+sample file selected  
+```D/result_debug: MainActivity # selected /storage/emulated/0/Download/sample pdf document.pdf```
+
+#### Screenshot ####
+| 1 | 2 | 3 |
+| :---: | :---: | :---: |
+| ![](https://i.imgur.com/OZ4NS6X.png) | ![](https://i.imgur.com/fSTZHBz.png) | ![](https://i.imgur.com/CbF1CXQ.png) |
+
+#### List Library ####
+- [Dexter](https://github.com/Karumi/Dexter)
+- [Storage Chooser](https://github.com/codekidX/storage-chooser)
