@@ -1,11 +1,13 @@
 package com.yoesuv.filepicker
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.FileHelper
+import com.yoesuv.filepicker.utils.checkAppPermission
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +23,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonChooser.setOnClickListener {
-            FileHelper.chooseFile(this, REQ_CODE)
+            checkAppPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, {
+                FileHelper.chooseFile(this, REQ_CODE)
+            }, {
+
+            })
+
         }
     }
 
