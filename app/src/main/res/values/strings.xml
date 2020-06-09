@@ -2,4 +2,6 @@
     <string name="app_name">File Picker</string>
 
     <string name="button_file_chooser">Choose File</string>
+
+    <string name="toast_permission_denied">Permission Denied</string>
 </resources>
