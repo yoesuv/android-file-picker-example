@@ -1,43 +1,46 @@
 package com.yoesuv.filepicker
 
 import android.Manifest
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.codekidlabs.storagechooser.StorageChooser
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
-import com.yoesuv.filepicker.utils.FileHelper
 import com.yoesuv.filepicker.utils.checkAppPermission
+import com.yoesuv.filepicker.utils.logDebug
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        const val REQ_CODE = 14;
-    }
-
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var chooserBuilder: StorageChooser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        chooserBuilder = StorageChooser.Builder()
+            .withActivity(this)
+            .withFragmentManager(fragmentManager)
+            .withMemoryBar(true)
+            .allowCustomPath(true)
+            .setType(StorageChooser.FILE_PICKER)
+            .build()
+
+        chooserBuilder.setOnSelectListener {
+            logDebug("MainActivity # selected $it")
+        }
+
         binding.buttonChooser.setOnClickListener {
-            checkAppPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, {
-                FileHelper.chooseFile(this, REQ_CODE)
-            }, {
-
-            })
-
+            openFileChooser()
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQ_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
+    private fun openFileChooser() {
+        checkAppPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, {
+            chooserBuilder.show()
+        }, {
 
-            }
-        }
+        })
     }
 }
