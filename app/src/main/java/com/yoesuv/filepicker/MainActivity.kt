@@ -6,8 +6,10 @@ import android.os.Bundle
 import com.codekidlabs.storagechooser.StorageChooser
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.checkAppPermission
+import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToast
+import pub.devrel.easypermissions.EasyPermissions
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,11 +40,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
     private fun openFileChooser() {
-        checkAppPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, {
-            chooserBuilder.show()
-        }, {
+        if (hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            showToast("Permission Granted")
+        } else {
             showToast(R.string.toast_permission_denied)
-        })
+        }
     }
 }

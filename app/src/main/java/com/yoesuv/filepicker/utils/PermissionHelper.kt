@@ -10,6 +10,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import pub.devrel.easypermissions.EasyPermissions
 
 fun checkAppPermission(context: Context, permission: String, onGranted:() -> Unit, onDenied:() -> Unit) {
     Dexter.withContext(context)
@@ -30,6 +31,10 @@ fun checkAppPermission(context: Context, permission: String, onGranted:() -> Uni
             }
         })
         .check()
+}
+
+fun hasPermission(context: Context, permission: String): Boolean {
+    return EasyPermissions.hasPermissions(context, permission)
 }
 
 fun openAppSettings(context: Context) {
