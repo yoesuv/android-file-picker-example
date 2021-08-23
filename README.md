@@ -11,4 +11,5 @@ sample file selected
 
 #### List Library ####
 - [Dexter](https://github.com/Karumi/Dexter)
+- [EasyPermissions](https://github.com/googlesamples/easypermissions)
 - [Storage Chooser](https://github.com/codekidX/storage-chooser)
