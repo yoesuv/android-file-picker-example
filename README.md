@@ -10,6 +10,5 @@ sample file selected
 | ![](https://i.imgur.com/OZ4NS6X.png) | ![](https://i.imgur.com/fSTZHBz.png) | ![](https://i.imgur.com/CbF1CXQ.png) |
 
 #### List Library ####
-- [Dexter](https://github.com/Karumi/Dexter)
 - [EasyPermissions](https://github.com/googlesamples/easypermissions)
 - [Storage Chooser](https://github.com/codekidX/storage-chooser)
