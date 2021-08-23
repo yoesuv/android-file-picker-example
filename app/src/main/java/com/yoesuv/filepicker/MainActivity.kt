@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.codekidlabs.storagechooser.StorageChooser
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
-import com.yoesuv.filepicker.utils.checkAppPermission
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToast
 import pub.devrel.easypermissions.EasyPermissions
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+
+    private val RC_READ_STORAGE: Int = 23
 
     private lateinit var binding: ActivityMainBinding
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonChooser.setOnClickListener {
-            openFileChooser()
+            checkPermissionReadStorage()
         }
     }
 
@@ -45,11 +46,23 @@ class MainActivity : AppCompatActivity() {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
-    private fun openFileChooser() {
+    private fun checkPermissionReadStorage() {
         if (hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            showToast("Permission Granted")
+
         } else {
-            showToast(R.string.toast_permission_denied)
+            val rationale = getString(R.string.rationale_read_storage)
+            EasyPermissions.requestPermissions(this, rationale, RC_READ_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
         }
     }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        logDebug("MainActivity # request code # $requestCode")
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        logDebug("MainActivity # request code # $requestCode")
+        showToast(R.string.toast_permission_read_storage_denied)
+    }
+
+
 }
