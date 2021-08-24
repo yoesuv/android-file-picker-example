@@ -11,4 +11,3 @@ sample file selected
 
 #### List Library ####
 - [EasyPermissions](https://github.com/googlesamples/easypermissions)
-- [Storage Chooser](https://github.com/codekidX/storage-chooser)
