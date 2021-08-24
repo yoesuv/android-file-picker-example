@@ -4,6 +4,7 @@ import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.codekidlabs.storagechooser.StorageChooser
+import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
@@ -12,8 +13,6 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
-
-    private val RC_READ_STORAGE: Int = 23
 
     private lateinit var binding: ActivityMainBinding
 
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
         } else {
             val rationale = getString(R.string.rationale_read_storage)
-            EasyPermissions.requestPermissions(this, rationale, RC_READ_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+            EasyPermissions.requestPermissions(this, rationale, RC_READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
         }
     }
 
