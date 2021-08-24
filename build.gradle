@@ -2,8 +2,8 @@
 buildscript {
     ext.kotlin_version = "1.5.20"
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.1'
@@ -17,6 +17,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
         maven { url "https://jitpack.io" }
     }
 }
