@@ -26,6 +26,26 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == RC_PICK_FILE) {
+                try {
+                    val uriData = data?.data
+                    uriData?.let { uri ->
+                        val mimeType = contentResolver.getType(uri)
+                        mimeType?.let { mime ->
+                            val fileType = mime.substring(mime.lastIndexOf("/") + 1)
+                            logDebug("MainActivity # file MIME type : $mime file type : $fileType")
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
