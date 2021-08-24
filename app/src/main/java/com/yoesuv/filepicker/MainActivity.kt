@@ -8,6 +8,7 @@ import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToast
+import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
@@ -56,12 +57,16 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        logDebug("MainActivity # request code # $requestCode")
+        logDebug("MainActivity # onPermissionsGranted -> request code : $requestCode/permissions $perms")
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        logDebug("MainActivity # request code # $requestCode")
-        showToast(R.string.toast_permission_read_storage_denied)
+        logDebug("MainActivity # onPermissionDenied -> request code : $requestCode/permission $perms")
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        } else {
+            showToast(R.string.toast_permission_read_storage_denied)
+        }
     }
 
 
