@@ -7,11 +7,10 @@ import android.os.Bundle
 import com.yoesuv.filepicker.data.RC_PICK_FILE
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
-import com.yoesuv.filepicker.utils.hasPermission
-import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToast
+import com.yoesuv.filepicker.utils.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+import java.io.File
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
@@ -33,11 +32,11 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                 try {
                     val uriData = data?.data
                     uriData?.let { uri ->
-                        val mimeType = contentResolver.getType(uri)
-                        mimeType?.let { mime ->
-                            val fileType = mime.substring(mime.lastIndexOf("/") + 1)
-                            logDebug("MainActivity # file MIME type : $mime file type : $fileType")
-                        }
+                        val fileName = getFileName(this, uri)
+                        val cacheDir = cacheDir.path + File.separator
+                        val inputStream = contentResolver.openInputStream(uri)
+                        val tempFile = File(cacheDir + fileName)
+                        MyFileUtils.copyToTempFile(inputStream, tempFile)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
