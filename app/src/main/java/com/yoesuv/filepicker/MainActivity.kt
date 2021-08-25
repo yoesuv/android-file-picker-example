@@ -67,12 +67,10 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        logDebug("MainActivity # onPermissionsGranted -> request code : $requestCode/permissions $perms")
         openFilePicker()
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        logDebug("MainActivity # onPermissionDenied -> request code : $requestCode/permission $perms")
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
