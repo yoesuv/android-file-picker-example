@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.Formatter
 import com.yoesuv.filepicker.data.RC_PICK_FILE
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                         val inputStream = contentResolver.openInputStream(uri)
                         val tempFile = File(cacheDir + fileName)
                         MyFileUtils.copyToTempFile(inputStream, tempFile)
+                        val fileSize = Formatter.formatFileSize(this, tempFile.length())
+                        logDebug("MainActivity # file name:${tempFile.name}/size:$fileSize")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

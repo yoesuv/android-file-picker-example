@@ -7,6 +7,7 @@ import java.io.InputStream
 class MyFileUtils {
 
     companion object {
+
         fun copyToTempFile(inputStream: InputStream?, file: File) {
             try {
                 val outputStream = FileOutputStream(file)
@@ -16,6 +17,7 @@ class MyFileUtils {
                 e.printStackTrace()
             }
         }
+
     }
 
 }
