@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             try {
                 val uriData = result.data?.data
                 uriData?.let { uri ->
-                    val fileName = getFileName(this, uri)
+                    val fileName = MyFileUtils.getFileName(this, uri)
                     val cacheDir = cacheDir.path + File.separator
                     val inputStream = contentResolver.openInputStream(uri)
                     val tempFile = File(cacheDir + fileName)
