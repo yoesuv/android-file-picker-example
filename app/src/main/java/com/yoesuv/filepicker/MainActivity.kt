@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.Formatter
-import com.yoesuv.filepicker.data.RC_PICK_FILE
+import androidx.activity.result.contract.ActivityResultContracts
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.*
@@ -17,34 +17,31 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val startForResultFile = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            try {
+                val uriData = result.data?.data
+                uriData?.let { uri ->
+                    val fileName = getFileName(this, uri)
+                    val cacheDir = cacheDir.path + File.separator
+                    val inputStream = contentResolver.openInputStream(uri)
+                    val tempFile = File(cacheDir + fileName)
+                    MyFileUtils.copyToTempFile(inputStream, tempFile)
+                    val fileSize = Formatter.formatFileSize(this, tempFile.length())
+                    logDebug("MainActivity # file name:${tempFile.name}/size:$fileSize")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.buttonChooser.setOnClickListener {
             checkPermissionReadStorage()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            if (requestCode == RC_PICK_FILE) {
-                try {
-                    val uriData = data?.data
-                    uriData?.let { uri ->
-                        val fileName = getFileName(this, uri)
-                        val cacheDir = cacheDir.path + File.separator
-                        val inputStream = contentResolver.openInputStream(uri)
-                        val tempFile = File(cacheDir + fileName)
-                        MyFileUtils.copyToTempFile(inputStream, tempFile)
-                        val fileSize = Formatter.formatFileSize(this, tempFile.length())
-                        logDebug("MainActivity # file name:${tempFile.name}/size:$fileSize")
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
         }
     }
 
@@ -66,7 +63,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "*/*"
-        startActivityForResult(intent, RC_PICK_FILE)
+        startForResultFile.launch(intent)
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {

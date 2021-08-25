@@ -2,7 +2,7 @@
 
 Pick a file in android. download apk [here](https://drive.google.com/file/d/1gvqdDETkRXCU5wPHChJG-xiep4BJrkiV/view?usp=sharing)  
 sample file selected  
-```D/result_debug: MainActivity # selected /storage/emulated/0/Download/sample pdf document.pdf```
+```12536-12536/com.yoesuv.filepicker D/result_debug: MainActivity # file name:Sample Document.pdf/size:8.24 kB```
 
 #### Screenshot ####
 | 1 | 2 | 3 |
