@@ -1,6 +1,8 @@
 ## Android File Picker/Chooser ##
 
-Pick a file in android. download apk [here](https://www.dropbox.com/s/yndmzte8vv6smls)  
+Pick a file & photo from camera in android.
+download apk [here](https://www.dropbox.com/s/yndmzte8vv6smls)
+
 sample file selected  
 ```D/result_debug: MainActivity # file name:Sample Document.pdf/size:8.24 kB```
 
@@ -11,3 +13,6 @@ sample file selected
 
 #### List Library ####
 - [EasyPermissions](https://github.com/googlesamples/easypermissions)
+
+#### References ####
+- [Stackoverflow](https://stackoverflow.com/a/65763144/3559183)

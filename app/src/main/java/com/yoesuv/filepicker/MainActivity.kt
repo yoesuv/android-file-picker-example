@@ -2,10 +2,13 @@ package com.yoesuv.filepicker
 
 import android.Manifest
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.text.format.Formatter
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
@@ -17,6 +20,7 @@ import java.io.File
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var photoUri: Uri
 
     private val startForResultFile = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -34,6 +38,12 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    private val startForCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        if (success) {
+            logDebug("MainActivity # take photo success: $photoUri")
         }
     }
 
@@ -80,7 +90,10 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun openCamera() {
-        logDebug("MainActivity # open camera")
+        val packageName = applicationContext.packageName
+        val photoFile = File.createTempFile("IMG_",".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES))
+        photoUri = FileProvider.getUriForFile(this, "$packageName.provider", photoFile)
+        startForCamera.launch(photoUri)
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
