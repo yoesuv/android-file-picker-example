@@ -1,15 +1,17 @@
-## Android File Picker/Chooser ##
+## Android File Picker/Chooser & Camera ##
 
 Pick a file & photo from camera in android.
-download apk [here](https://www.dropbox.com/s/yndmzte8vv6smls)
+download apk [here](https://www.dropbox.com/s/fh1rfpxbmbu8gzu)
 
 sample file selected  
 ```D/result_debug: MainActivity # file name:Sample Document.pdf/size:8.24 kB```
+sample photo from camera
+```D/result_debug: MainActivity # take photo success: content://com.yoesuv.filepicker.provider/file_picker_images/Android/data/com.yoesuv.filepicker/files/Pictures/IMG_4591579082172412793.jpg```
 
 #### Screenshot ####
-| 1 | 2 | 3 |
+| ![](https://i.imgur.com/zpeY2pe.png) | ![](https://i.imgur.com/L1LC1Ev.png) | ![](https://i.imgur.com/mvGNubg.png) |
 | :---: | :---: | :---: |
-| ![](https://i.imgur.com/18iE9MI.png) | ![](https://i.imgur.com/ZLd1rnz.png) | ![](https://i.imgur.com/xjALnIj.png) |
+| ![](https://i.imgur.com/w6YprKq.png) | ![](https://i.imgur.com/57eBH4s.png) | - |
 
 #### List Library ####
 - [EasyPermissions](https://github.com/googlesamples/easypermissions)
