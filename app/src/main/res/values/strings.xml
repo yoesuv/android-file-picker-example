@@ -2,6 +2,7 @@
     <string name="app_name">File Picker</string>
 
     <string name="button_file_chooser">Choose File</string>
+    <string name="button_camera">Take Photo</string>
 
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>
     <string name="toast_permission_read_storage_denied">Permission Read Storage Denied</string>
