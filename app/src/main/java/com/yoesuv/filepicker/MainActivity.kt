@@ -9,7 +9,6 @@ import android.text.format.Formatter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.*
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             checkPermissionReadStorage()
         }
         binding.buttonCamera.setOnClickListener {
-            checkPermissionCamera()
+            openCamera()
         }
     }
 
@@ -70,15 +69,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         } else {
             val rationale = getString(R.string.rationale_read_storage)
             EasyPermissions.requestPermissions(this, rationale, RC_READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
-    }
-
-    private fun checkPermissionCamera() {
-        if (hasPermission(this, Manifest.permission.CAMERA)) {
-            openCamera()
-        } else {
-            val rationale = getString(R.string.rationale_camera)
-            EasyPermissions.requestPermissions(this, rationale, RC_CAMERA, Manifest.permission.CAMERA)
         }
     }
 
@@ -99,8 +89,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == RC_READ_EXTERNAL_STORAGE) {
             openFilePicker()
-        } else if (requestCode == RC_CAMERA) {
-            openCamera()
         }
     }
 
@@ -110,8 +98,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         } else {
             if (requestCode == RC_READ_EXTERNAL_STORAGE) {
                 showToast(R.string.toast_permission_read_storage_denied)
-            } else if (requestCode == RC_CAMERA) {
-                showToast(R.string.toast_permission_camera_denied)
             }
         }
     }
