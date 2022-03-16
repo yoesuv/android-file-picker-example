@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.Formatter
 import androidx.activity.result.contract.ActivityResultContracts
+import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.*
@@ -43,6 +44,9 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         binding.buttonChooser.setOnClickListener {
             checkPermissionReadStorage()
         }
+        binding.buttonCamera.setOnClickListener {
+            checkPermissionCamera()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -59,6 +63,15 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+    private fun checkPermissionCamera() {
+        if (hasPermission(this, Manifest.permission.CAMERA)) {
+            openCamera()
+        } else {
+            val rationale = getString(R.string.rationale_camera)
+            EasyPermissions.requestPermissions(this, rationale, RC_CAMERA, Manifest.permission.CAMERA)
+        }
+    }
+
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -66,15 +79,27 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         startForResultFile.launch(intent)
     }
 
+    private fun openCamera() {
+        logDebug("MainActivity # open camera")
+    }
+
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        openFilePicker()
+        if (requestCode == RC_READ_EXTERNAL_STORAGE) {
+            openFilePicker()
+        } else if (requestCode == RC_CAMERA) {
+            openCamera()
+        }
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
-            showToast(R.string.toast_permission_read_storage_denied)
+            if (requestCode == RC_READ_EXTERNAL_STORAGE) {
+                showToast(R.string.toast_permission_read_storage_denied)
+            } else if (requestCode == RC_CAMERA) {
+                showToast(R.string.toast_permission_camera_denied)
+            }
         }
     }
 
