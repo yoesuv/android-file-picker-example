@@ -4,7 +4,7 @@ Pick a file & photo from camera in android.
 download apk [here](https://www.dropbox.com/s/fh1rfpxbmbu8gzu)
 
 sample file selected  
-```D/result_debug: MainActivity # file name:Sample Document.pdf/size:8.24 kB```
+```D/result_debug: MainActivity # file name:Sample Document.pdf/size:8.24 kB```  
 sample photo from camera
 ```D/result_debug: MainActivity # take photo success: content://com.yoesuv.filepicker.provider/file_picker_images/Android/data/com.yoesuv.filepicker/files/Pictures/IMG_4591579082172412793.jpg```
 
