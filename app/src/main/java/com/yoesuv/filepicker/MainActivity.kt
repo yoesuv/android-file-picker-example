@@ -56,6 +56,9 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         binding.buttonCamera.setOnClickListener {
             openCamera()
         }
+        binding.buttonLocation.setOnClickListener {
+
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

@@ -1,6 +1,6 @@
-## Android File Picker/Chooser & Camera ##
+## Android File Picker/Chooser & Camera + Permission ##
 
-Pick a file & photo from camera in android.  
+Pick a file & photo from camera in android. also location.  
 download apk [here](https://www.dropbox.com/s/fh1rfpxbmbu8gzu)
 
 sample file selected  
