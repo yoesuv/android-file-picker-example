@@ -9,6 +9,7 @@ import android.text.format.Formatter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.yoesuv.filepicker.data.RC_FINE_LOCATION
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.*
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var photoUri: Uri
+
+    //private lateinit var fused: FusedLoc
 
     private val startForResultFile = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             openCamera()
         }
         binding.buttonLocation.setOnClickListener {
-
+            checkPermissionLocation()
         }
     }
 
@@ -72,6 +75,15 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         } else {
             val rationale = getString(R.string.rationale_read_storage)
             EasyPermissions.requestPermissions(this, rationale, RC_READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    private fun checkPermissionLocation() {
+        if (hasPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+        } else {
+            val rationale = getString(R.string.rationale_fine_location)
+            EasyPermissions.requestPermissions(this, rationale, RC_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
