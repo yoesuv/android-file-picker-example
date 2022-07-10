@@ -9,6 +9,7 @@ import android.text.format.Formatter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.yoesuv.filepicker.data.RC_FINE_LOCATION
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
 import com.yoesuv.filepicker.utils.*
@@ -56,6 +57,9 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         binding.buttonCamera.setOnClickListener {
             openCamera()
         }
+        binding.buttonLocation.setOnClickListener {
+            checkPermissionLocation()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -72,6 +76,15 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+    private fun checkPermissionLocation() {
+        if (hasPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            getUserLocation()
+        } else {
+            val rationale = getString(R.string.rationale_fine_location)
+            EasyPermissions.requestPermissions(this, rationale, RC_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -81,23 +94,32 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun openCamera() {
         val packageName = applicationContext.packageName
-        val photoFile = File.createTempFile("IMG_",".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES))
+        val photoFile = File.createTempFile("IMG_", ".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES))
         photoUri = FileProvider.getUriForFile(this, "$packageName.provider", photoFile)
         startForCamera.launch(photoUri)
+    }
+
+    private fun getUserLocation() {
+        logDebug("MainActivity # get user location")
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == RC_READ_EXTERNAL_STORAGE) {
             openFilePicker()
+        } else if (requestCode == RC_FINE_LOCATION) {
+            getUserLocation()
         }
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        logDebug("MainActivity # request code $requestCode/permission $perms")
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
             if (requestCode == RC_READ_EXTERNAL_STORAGE) {
                 showToast(R.string.toast_permission_read_storage_denied)
+            } else if (requestCode == RC_FINE_LOCATION) {
+                showToast(R.string.toast_permission_access_fine_location_denied)
             }
         }
     }
