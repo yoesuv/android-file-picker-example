@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     private lateinit var binding: ActivityMainBinding
     private lateinit var photoUri: Uri
 
-    //private lateinit var fused: FusedLoc
-
     private val startForResultFile = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             try {
@@ -80,7 +78,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun checkPermissionLocation() {
         if (hasPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-
+            getUserLocation()
         } else {
             val rationale = getString(R.string.rationale_fine_location)
             EasyPermissions.requestPermissions(this, rationale, RC_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -96,23 +94,32 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun openCamera() {
         val packageName = applicationContext.packageName
-        val photoFile = File.createTempFile("IMG_",".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES))
+        val photoFile = File.createTempFile("IMG_", ".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES))
         photoUri = FileProvider.getUriForFile(this, "$packageName.provider", photoFile)
         startForCamera.launch(photoUri)
+    }
+
+    private fun getUserLocation() {
+        logDebug("MainActivity # get user location")
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == RC_READ_EXTERNAL_STORAGE) {
             openFilePicker()
+        } else if (requestCode == RC_FINE_LOCATION) {
+            getUserLocation()
         }
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        logDebug("MainActivity # request code $requestCode/permission $perms")
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
             if (requestCode == RC_READ_EXTERNAL_STORAGE) {
                 showToast(R.string.toast_permission_read_storage_denied)
+            } else if (requestCode == RC_FINE_LOCATION) {
+                showToast(R.string.toast_permission_access_fine_location_denied)
             }
         }
     }

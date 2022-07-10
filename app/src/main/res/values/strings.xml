@@ -8,4 +8,5 @@
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>
     <string name="rationale_fine_location">This app needs access to your precise location.</string>
     <string name="toast_permission_read_storage_denied">Permission Read Storage Denied</string>
+    <string name="toast_permission_access_fine_location_denied">Permission Precise Location Denied</string>
 </resources>
