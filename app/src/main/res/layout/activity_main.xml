@@ -24,11 +24,11 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonGallery"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
-                android:text="@string/button_gallery"/>
+                android:text="@string/button_gallery"
+                android:onClick="@{main::clickGallery}"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonCamera"
