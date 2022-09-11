@@ -1,13 +1,19 @@
 package com.yoesuv.filepicker.menu.gallery.views
 
+import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityGalleryBinding
 import com.yoesuv.filepicker.menu.gallery.viewmodels.GalleryViewModel
+import com.yoesuv.filepicker.utils.hasPermission
+import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToast
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -16,6 +22,14 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
     private lateinit var binding: ActivityGalleryBinding
     private lateinit var viewModel: GalleryViewModel
+
+    private val startForResultGallery =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val uriData = result.data?.data
+                logDebug("GalleryActivity # uri : $uriData")
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +41,17 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         setupToolbar()
 
         binding.buttonOpenGallery.setOnClickListener {
-            viewModel.clickOpenGallery(this)
+            if (hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                openGallery()
+            } else {
+                val rationale = getString(R.string.rationale_read_storage_gallery)
+                EasyPermissions.requestPermissions(
+                    this,
+                    rationale,
+                    RC_READ_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            }
         }
     }
 
@@ -52,8 +76,14 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         supportActionBar?.setTitle(R.string.button_gallery)
     }
 
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startForResultGallery.launch(intent)
+    }
+
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        viewModel.openGallery()
+        openGallery()
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
