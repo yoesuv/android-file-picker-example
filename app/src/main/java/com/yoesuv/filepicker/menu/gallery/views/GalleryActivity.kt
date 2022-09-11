@@ -40,21 +40,7 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         binding.gallery = viewModel
 
         setupToolbar()
-
-        binding.buttonOpenGallery.setOnClickListener {
-            if (hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                openGallery()
-            } else {
-                val rationale = getString(R.string.rationale_read_storage_gallery)
-                EasyPermissions.requestPermissions(
-                    this,
-                    rationale,
-                    RC_READ_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            }
-        }
-
+        setupButton()
         observeData()
     }
 
@@ -77,6 +63,22 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     private fun setupToolbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.button_gallery)
+    }
+
+    private fun setupButton() {
+        binding.buttonOpenGallery.setOnClickListener {
+            if (hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                openGallery()
+            } else {
+                val rationale = getString(R.string.rationale_read_storage_gallery)
+                EasyPermissions.requestPermissions(
+                    this,
+                    rationale,
+                    RC_READ_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            }
+        }
     }
 
     private fun openGallery() {

@@ -6,8 +6,10 @@
     <string name="button_location">Location</string>
     <string name="button_gallery">Gallery</string>
     <string name="button_open_gallery">Open Gallery</string>
+    <string name="button_open_camera">Open Camera</string>
 
     <string name="select_an_image">Select an image</string>
+    <string name="take_a_picture">Take a Picture</string>
 
     <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>

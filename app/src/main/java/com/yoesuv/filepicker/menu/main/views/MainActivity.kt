@@ -62,9 +62,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         binding.buttonChooser.setOnClickListener {
             checkPermissionReadStorage()
         }
-        binding.buttonCamera.setOnClickListener {
-            openCamera()
-        }
         binding.buttonLocation.setOnClickListener {
             checkPermissionLocation()
         }
