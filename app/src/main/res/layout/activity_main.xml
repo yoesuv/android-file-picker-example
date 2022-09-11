@@ -23,20 +23,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonChooser"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonGallery"
+                style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
-                android:text="@string/button_file_chooser"/>
+                android:text="@string/button_gallery"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonCamera"
+                style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
                 android:text="@string/button_camera" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonChooser"
+                style="@style/ButtonTheme"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="wrap_content"
+                android:text="@string/button_file_chooser"/>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLocation"
+                style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
                 android:text="@string/button_location" />

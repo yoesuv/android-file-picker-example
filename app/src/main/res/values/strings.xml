@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">File Picker &amp; Permission</string>
+    <string name="app_name">Picker &amp; Permission</string>
 
-    <string name="button_file_chooser">Choose File</string>
-    <string name="button_camera">Take Photo</string>
-    <string name="button_location">Take Location</string>
+    <string name="button_file_chooser">File</string>
+    <string name="button_camera">Camera</string>
+    <string name="button_location">Location</string>
+    <string name="button_gallery">Gallery</string>
 
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>
     <string name="rationale_fine_location">This app needs access to your precise location.</string>
