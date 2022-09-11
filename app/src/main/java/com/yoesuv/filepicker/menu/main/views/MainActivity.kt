@@ -1,4 +1,4 @@
-package com.yoesuv.filepicker
+package com.yoesuv.filepicker.menu.main.views
 
 import android.Manifest
 import android.content.Intent
@@ -9,9 +9,13 @@ import android.text.format.Formatter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RC_FINE_LOCATION
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityMainBinding
+import com.yoesuv.filepicker.menu.main.viewmodels.MainViewModel
 import com.yoesuv.filepicker.utils.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -20,6 +24,7 @@ import java.io.File
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
     private lateinit var photoUri: Uri
 
     private val startForResultFile = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -49,8 +54,11 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        binding.main = viewModel
+
         binding.buttonChooser.setOnClickListener {
             checkPermissionReadStorage()
         }
