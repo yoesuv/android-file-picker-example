@@ -6,6 +6,7 @@
     <string name="button_location">Location</string>
     <string name="button_gallery">Gallery</string>
 
+    <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>
     <string name="rationale_fine_location">This app needs access to your precise location.</string>
     <string name="toast_permission_read_storage_denied">Permission Read Storage Denied</string>
