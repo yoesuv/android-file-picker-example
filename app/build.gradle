@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 32
 
     defaultConfig {
         applicationId "com.yoesuv.filepicker"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 32
         versionCode 4
         versionName "2.2.0"
 
