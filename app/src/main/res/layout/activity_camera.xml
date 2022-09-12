@@ -3,56 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="camera"
+            type="com.yoesuv.filepicker.menu.camera.viewmodels.CameraViewModel" />
+    </data>
+
     <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/image_view_height"
-        android:layout_margin="16dp">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivCamera"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_view_height"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            android:layout_margin="16dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCamera"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_view_height"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{camera.imageUri == null ? View.VISIBLE : View.GONE}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/take_a_picture"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvCameraPath"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/take_a_picture"
+            android:layout_marginHorizontal="16dp"
+            android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:textSize="14sp"/>
+            tools:text="@tools:sample/lorem" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonOpenCamera"
+            style="@style/ButtonTheme"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/button_open_camera"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvCameraPath"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
-        tools:text="@tools:sample/lorem" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonOpenCamera"
-        style="@style/ButtonTheme"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/button_open_camera"/>
-
-</LinearLayout>
+    </LinearLayout>
 
 </layout>

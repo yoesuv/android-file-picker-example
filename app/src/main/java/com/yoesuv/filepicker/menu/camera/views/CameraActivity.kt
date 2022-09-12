@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.databinding.ActivityCameraBinding
+import com.yoesuv.filepicker.menu.camera.viewmodels.CameraViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToast
@@ -22,12 +24,14 @@ import java.io.File
 class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityCameraBinding
+    private val viewModel: CameraViewModel by viewModels()
     private lateinit var photoUri: Uri
 
     private val startForCamera =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
                 logDebug("CameraActivity # take photo success: $photoUri")
+                viewModel.imageUri.postValue(photoUri)
             }
         }
 
@@ -35,9 +39,11 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_camera)
         binding.lifecycleOwner = this
+        binding.camera = viewModel
 
         setupToolbar()
         setupButton()
+        observeData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -73,6 +79,15 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
                     RC_CAMERA,
                     Manifest.permission.CAMERA
                 )
+            }
+        }
+    }
+
+    private fun observeData() {
+        viewModel.imageUri.observe(this) { uri ->
+            if (uri != null) {
+                binding.ivCamera.setImageURI(uri)
+                binding.tvCameraPath.text = uri.path
             }
         }
     }
