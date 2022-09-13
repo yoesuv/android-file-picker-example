@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Picker &amp; Permission</string>
 
-    <string name="button_file_chooser">File</string>
+    <string name="button_file">File</string>
     <string name="button_camera">Camera</string>
     <string name="button_location">Location</string>
     <string name="button_gallery">Gallery</string>
     <string name="button_open_gallery">Open Gallery</string>
     <string name="button_open_camera">Open Camera</string>
+    <string name="button_choose_file">Choose File</string>
 
     <string name="select_an_image">Select an image</string>
     <string name="take_a_picture">Take a Picture</string>

@@ -50,9 +50,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding.main = viewModel
 
-        binding.buttonChooser.setOnClickListener {
-            checkPermissionReadStorage()
-        }
         binding.buttonLocation.setOnClickListener {
             checkPermissionLocation()
         }

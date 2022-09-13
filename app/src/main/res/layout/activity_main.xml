@@ -43,7 +43,8 @@
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
-                android:text="@string/button_file_chooser"/>
+                android:text="@string/button_file"
+                android:onClick="@{main::clickFile}"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLocation"

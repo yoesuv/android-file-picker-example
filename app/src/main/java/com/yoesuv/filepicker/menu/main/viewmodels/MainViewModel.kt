@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.yoesuv.filepicker.menu.camera.views.CameraActivity
+import com.yoesuv.filepicker.menu.file.views.FileActivity
 import com.yoesuv.filepicker.menu.gallery.views.GalleryActivity
 
 class MainViewModel: ViewModel() {
@@ -16,6 +17,11 @@ class MainViewModel: ViewModel() {
     fun clickCamera(view: View) {
         val ctx = view.context
         ctx.startActivity(Intent(ctx, CameraActivity::class.java))
+    }
+
+    fun clickFile(view: View) {
+        val ctx = view.context
+        ctx.startActivity(Intent(ctx, FileActivity::class.java))
     }
 
 }

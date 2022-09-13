@@ -40,6 +40,8 @@
 
         <activity android:name=".menu.camera.views.CameraActivity" />
 
+        <activity android:name=".menu.file.views.FileActivity" />
+
     </application>
 
 </manifest>
