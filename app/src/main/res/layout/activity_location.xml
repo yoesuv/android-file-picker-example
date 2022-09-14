@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="location"
+            type="com.yoesuv.filepicker.menu.location.viewmodels.LocationViewModel" />
+    </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

@@ -1,11 +1,16 @@
 package com.yoesuv.filepicker.menu.location.views
 
+import android.Manifest
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.RC_COARSE_LOCATION
 import com.yoesuv.filepicker.databinding.ActivityLocationBinding
+import com.yoesuv.filepicker.menu.location.viewmodels.LocationViewModel
+import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.showToast
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -13,13 +18,16 @@ import pub.devrel.easypermissions.EasyPermissions
 class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityLocationBinding
+    private val viewModel: LocationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_location)
         binding.lifecycleOwner = this
+        binding.location = viewModel
 
         setupToolbar()
+        setupButton()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -39,8 +47,19 @@ class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
         supportActionBar?.setTitle(R.string.button_location)
     }
 
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+    private fun setupButton() {
+        binding.buttonUserLocation.setOnClickListener {
+            if (hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                viewModel.getUserLocation()
+            } else {
+                val rationale = getString(R.string.rationale_fine_location)
+                EasyPermissions.requestPermissions(this, rationale, RC_COARSE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            }
+        }
+    }
 
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        viewModel.getUserLocation()
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
