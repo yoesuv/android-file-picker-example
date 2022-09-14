@@ -46,4 +46,5 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
 }

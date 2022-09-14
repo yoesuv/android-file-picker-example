@@ -26,8 +26,11 @@ class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
         binding.lifecycleOwner = this
         binding.location = viewModel
 
+        viewModel.setup(this)
+
         setupToolbar()
         setupButton()
+        observeData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,6 +58,12 @@ class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 val rationale = getString(R.string.rationale_fine_location)
                 EasyPermissions.requestPermissions(this, rationale, RC_COARSE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
             }
+        }
+    }
+
+    private fun observeData() {
+        viewModel.userLocation.observe(this) {
+            binding.tvUserLocation.text = it
         }
     }
 
