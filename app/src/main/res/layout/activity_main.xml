@@ -31,7 +31,6 @@
                 android:onClick="@{main::clickGallery}"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonCamera"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
@@ -39,7 +38,6 @@
                 android:onClick="@{main::clickCamera}"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonChooser"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
@@ -47,12 +45,18 @@
                 android:onClick="@{main::clickFile}"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonLocation"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
                 android:text="@string/button_location"
                 android:onClick="@{main::clickLocation}"/>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonTheme"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="wrap_content"
+                android:text="@string/button_download"
+                android:onClick="@{main::clickDownload}"/>
 
         </LinearLayout>
 

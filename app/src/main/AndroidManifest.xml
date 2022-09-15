@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yoesuv.filepicker">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -13,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        tools:ignore="LockedOrientationActivity">
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -27,7 +30,8 @@
 
 
         <activity android:name=".menu.main.views.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,13 +39,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".menu.gallery.views.GalleryActivity" />
+        <activity android:name=".menu.gallery.views.GalleryActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".menu.camera.views.CameraActivity" />
+        <activity android:name=".menu.camera.views.CameraActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".menu.file.views.FileActivity" />
+        <activity android:name=".menu.file.views.FileActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".menu.location.views.LocationActivity" />
+        <activity android:name=".menu.location.views.LocationActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".menu.download.views.DownloadActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 
