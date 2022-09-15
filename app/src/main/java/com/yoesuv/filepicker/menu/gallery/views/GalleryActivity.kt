@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityGalleryBinding
@@ -21,7 +21,7 @@ import pub.devrel.easypermissions.EasyPermissions
 class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityGalleryBinding
-    private lateinit var viewModel: GalleryViewModel
+    private val viewModel: GalleryViewModel by viewModels()
 
     private val startForResultGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -36,7 +36,6 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_gallery)
         binding.lifecycleOwner = this
-        viewModel = ViewModelProvider(this)[GalleryViewModel::class.java]
         binding.gallery = viewModel
 
         setupToolbar()
