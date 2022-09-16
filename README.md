@@ -20,3 +20,4 @@ sample photo from camera
 #### References ####
 - [Stackoverflow](https://stackoverflow.com/a/65763144/3559183)
 - [Request location permissions](https://developer.android.com/training/location/permissions)
+- [Data Storage](https://developer.android.com/training/data-storage)

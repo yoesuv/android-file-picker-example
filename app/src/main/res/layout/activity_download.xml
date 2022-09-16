@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="download"
+            type="com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel" />
+    </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
