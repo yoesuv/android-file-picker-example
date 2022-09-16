@@ -1,5 +1,6 @@
 package com.yoesuv.filepicker.menu.download.views
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,11 +8,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.RC_WRITE_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityDownloadBinding
 import com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel
+import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
+import pub.devrel.easypermissions.EasyPermissions
 
-class DownloadActivity: AppCompatActivity() {
+class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityDownloadBinding
     private val viewModel: DownloadViewModel by viewModels()
@@ -33,6 +37,11 @@ class DownloadActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
     private fun setupToolbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.button_download)
@@ -42,14 +51,39 @@ class DownloadActivity: AppCompatActivity() {
         binding.buttonDownloadFile.setOnClickListener {
             val sdkInt = Build.VERSION.SDK_INT
             logDebug("DownloadActivity # device SDK : $sdkInt")
-            if (sdkInt < Build.VERSION_CODES.R) {
+            if (sdkInt <= Build.VERSION_CODES.Q) {
                 // request write external storage
                 logDebug("DownloadActivity # request permission write")
+                setupDownloadSDK29()
             } else {
                 // other
                 logDebug("DownloadActivity # other")
             }
         }
+    }
+
+    private fun setupDownloadSDK29() {
+        if (hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            viewModel.downloadFile()
+        } else {
+            val rationale = getString(R.string.rationale_write_storage)
+            EasyPermissions.requestPermissions(
+                this,
+                rationale,
+                RC_WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        if (requestCode == RC_WRITE_EXTERNAL_STORAGE) {
+            viewModel.downloadFile()
+        }
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+
     }
 
 }
