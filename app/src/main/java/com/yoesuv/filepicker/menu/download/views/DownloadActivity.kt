@@ -64,7 +64,7 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
     private fun setupDownloadSDK29() {
         if (hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            viewModel.downloadFile()
+            viewModel.downloadFile(this)
         } else {
             val rationale = getString(R.string.rationale_write_storage)
             EasyPermissions.requestPermissions(
@@ -78,7 +78,7 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == RC_WRITE_EXTERNAL_STORAGE) {
-            viewModel.downloadFile()
+            viewModel.downloadFile(this)
         }
     }
 
