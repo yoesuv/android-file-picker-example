@@ -21,6 +21,7 @@
     <string name="rationale_open_camera">This app needs access to your camera to take a photo.</string>
     <string name="rationale_fine_location">This app needs access to your precise location.</string>
     <string name="toast_permission_read_storage_denied">Permission Read Storage Denied</string>
+    <string name="toast_permission_write_storage_denied">Permission Write Storage Denied</string>
     <string name="toast_permission_camera_denied">Permission Camera Denied</string>
     <string name="toast_permission_access_coarse_location_denied">Permission Precise Location Denied</string>
 </resources>

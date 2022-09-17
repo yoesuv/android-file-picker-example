@@ -13,6 +13,7 @@ import com.yoesuv.filepicker.databinding.ActivityDownloadBinding
 import com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
+import com.yoesuv.filepicker.utils.showToast
 import pub.devrel.easypermissions.EasyPermissions
 
 class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
@@ -83,7 +84,13 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
 
+        } else {
+            if (requestCode == RC_WRITE_EXTERNAL_STORAGE) {
+                showToast(R.string.toast_permission_write_storage_denied)
+            }
+        }
     }
 
 }
