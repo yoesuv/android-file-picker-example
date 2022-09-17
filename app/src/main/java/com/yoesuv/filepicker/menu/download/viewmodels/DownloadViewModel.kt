@@ -1,10 +1,14 @@
 package com.yoesuv.filepicker.menu.download.viewmodels
 
 import android.app.DownloadManager
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.webkit.URLUtil
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.yoesuv.filepicker.data.DOWNLOAD_LINK
 import com.yoesuv.filepicker.utils.logDebug
@@ -14,32 +18,57 @@ class DownloadViewModel: ViewModel() {
 
     // https://stackoverflow.com/a/68627407/3559183
     fun downloadFile(context: Context) {
-        logDebug("DownloadViewModel # start download file")
         val fileName = URLUtil.guessFileName(DOWNLOAD_LINK, null, null)
-        logDebug("DownloadViewModel # file name : $fileName")
         try {
             val folder = File(Environment.getExternalStorageDirectory(), "Download")
-            logDebug("DownloadViewModel # folder exist? ${folder.exists()}")
             if (!folder.exists()) {
                 folder.mkdirs()
             }
-            val path = folder.absolutePath + File.separator + fileName
-            logDebug("DownloadViewModel # file path : $path")
-            val fileResult = File(path)
+            val pathFile = folder.absolutePath + File.separator + fileName
+            val fileResult = File(pathFile)
 
             val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             val request = DownloadManager.Request(Uri.parse(DOWNLOAD_LINK))
             request.setAllowedOverMetered(true)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
             request.setTitle(fileName)
             request.setDestinationUri(Uri.fromFile(fileResult))
-
             downloadManager.enqueue(request)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    // https://stackoverflow.com/a/65699427/3559183
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun downloadFileSdk29(context: Context) {
+        val fileName = URLUtil.guessFileName(DOWNLOAD_LINK, null, null)
+
+        val fileCollection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+        val contentValues = ContentValues()
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+        //val uri = context.contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+        val uri = context.contentResolver.insert(fileCollection, contentValues)
+        logDebug("DownloadViewModel # content resolver uri path : ${uri?.path}")
+        if (uri != null) {
+            context.contentResolver.openOutputStream(uri).use { outputStream ->
+                if (outputStream != null) {
+                    
+                }
+            }
+        }
+
+//        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+//        val request = DownloadManager.Request(Uri.parse(DOWNLOAD_LINK))
+//        request.setAllowedOverMetered(true)
+//        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
+//        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
+//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+//        request.setTitle(fileName)
+//        request.setDestinationUri(uri)
+//        downloadManager.enqueue(request)
     }
 
 }

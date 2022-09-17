@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
@@ -21,6 +22,7 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
     private lateinit var binding: ActivityDownloadBinding
     private val viewModel: DownloadViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_download)
@@ -48,22 +50,20 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
         supportActionBar?.setTitle(R.string.button_download)
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun setupButton() {
         binding.buttonDownloadFile.setOnClickListener {
             val sdkInt = Build.VERSION.SDK_INT
             logDebug("DownloadActivity # device SDK : $sdkInt")
-            if (sdkInt <= Build.VERSION_CODES.Q) {
-                // request write external storage
-                logDebug("DownloadActivity # request permission write")
-                setupDownloadSDK29()
+            if (sdkInt <= Build.VERSION_CODES.P) {
+                setupDownloadSDK28()
             } else {
-                // other
-                logDebug("DownloadActivity # other")
+                viewModel.downloadFileSdk29(this)
             }
         }
     }
 
-    private fun setupDownloadSDK29() {
+    private fun setupDownloadSDK28() {
         if (hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             viewModel.downloadFile(this)
         } else {
