@@ -11,7 +11,6 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.yoesuv.filepicker.data.DOWNLOAD_LINK
 import com.yoesuv.filepicker.utils.logDebug
 import java.io.File
