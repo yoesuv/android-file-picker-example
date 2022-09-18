@@ -7,4 +7,4 @@ const val RC_CAMERA = 25
 const val RC_WRITE_EXTERNAL_STORAGE = 26
 
 const val BASE_URL = "https://raw.githubusercontent.com"
-const val DOWNLOAD_LINK = "https://raw.githubusercontent.com/yoesuv/GetX-Playground/master/Sample%20Document%20pdf.pdf"
+const val DOWNLOAD_LINK = "yoesuv/GetX-Playground/master/Sample%20Document%20pdf.pdf"

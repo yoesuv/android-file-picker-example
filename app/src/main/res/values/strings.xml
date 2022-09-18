@@ -24,4 +24,6 @@
     <string name="toast_permission_write_storage_denied">Permission Write Storage Denied</string>
     <string name="toast_permission_camera_denied">Permission Camera Denied</string>
     <string name="toast_permission_access_coarse_location_denied">Permission Precise Location Denied</string>
+    <string name="toast_download_success">Download Success</string>
+    <string name="toast_download_failed">Download Failed</string>
 </resources>
