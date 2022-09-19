@@ -16,7 +16,7 @@ import com.yoesuv.filepicker.databinding.ActivityCameraBinding
 import com.yoesuv.filepicker.menu.camera.viewmodels.CameraViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToast
+import com.yoesuv.filepicker.utils.showToastError
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
@@ -108,7 +108,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
-            showToast(R.string.toast_permission_camera_denied)
+            showToastError(R.string.toast_permission_camera_denied)
         }
     }
 

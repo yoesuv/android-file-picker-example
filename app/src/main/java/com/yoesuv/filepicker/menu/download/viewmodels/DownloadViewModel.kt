@@ -8,13 +8,15 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.webkit.URLUtil
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.DOWNLOAD_LINK
 import com.yoesuv.filepicker.networks.DownloadRepository
+import com.yoesuv.filepicker.utils.logError
+import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showToastSuccess
 import java.io.File
 
 class DownloadViewModel: ViewModel() {
@@ -42,6 +44,7 @@ class DownloadViewModel: ViewModel() {
             request.setDestinationUri(Uri.fromFile(fileResult))
             downloadManager.enqueue(request)
         } catch (e: Exception) {
+            logError(e.message)
             e.printStackTrace()
         }
     }
@@ -63,16 +66,17 @@ class DownloadViewModel: ViewModel() {
                     val outputStream = context.contentResolver.openOutputStream(uri, "rwt")
                     outputStream?.write(body.bytes())
                     outputStream?.close()
-                    Toast.makeText(context, R.string.toast_download_success, Toast.LENGTH_SHORT).show()
+                    context.showToastSuccess(R.string.toast_download_success)
                 } else {
-                    Toast.makeText(context, R.string.toast_download_failed, Toast.LENGTH_LONG).show()
+                    context.showToastError(R.string.toast_download_failed)
                 }
             } else {
-                Toast.makeText(context, R.string.toast_download_failed, Toast.LENGTH_LONG).show()
+                context.showToastError(R.string.toast_download_failed)
             }
         }, { error ->
+            logError(error.message)
             error.printStackTrace()
-            Toast.makeText(context, R.string.toast_download_failed, Toast.LENGTH_LONG).show()
+            context.showToastError(R.string.toast_download_failed)
         })
     }
 

@@ -14,7 +14,7 @@ import com.yoesuv.filepicker.databinding.ActivityDownloadBinding
 import com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToast
+import com.yoesuv.filepicker.utils.showToastError
 import pub.devrel.easypermissions.EasyPermissions
 
 class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
@@ -88,7 +88,7 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
         } else {
             if (requestCode == RC_WRITE_EXTERNAL_STORAGE) {
-                showToast(R.string.toast_permission_write_storage_denied)
+                showToastError(R.string.toast_permission_write_storage_denied)
             }
         }
     }

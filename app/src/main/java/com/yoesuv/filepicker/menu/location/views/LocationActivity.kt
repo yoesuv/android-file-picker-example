@@ -11,7 +11,7 @@ import com.yoesuv.filepicker.data.RC_COARSE_LOCATION
 import com.yoesuv.filepicker.databinding.ActivityLocationBinding
 import com.yoesuv.filepicker.menu.location.viewmodels.LocationViewModel
 import com.yoesuv.filepicker.utils.hasPermission
-import com.yoesuv.filepicker.utils.showToast
+import com.yoesuv.filepicker.utils.showToastError
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -75,7 +75,7 @@ class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
-            showToast(R.string.toast_permission_access_coarse_location_denied)
+            showToastError(R.string.toast_permission_access_coarse_location_denied)
         }
     }
 

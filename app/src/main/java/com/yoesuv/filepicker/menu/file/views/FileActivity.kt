@@ -13,10 +13,7 @@ import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityFileBinding
 import com.yoesuv.filepicker.menu.file.viewmodels.FileViewModel
-import com.yoesuv.filepicker.utils.MyFileUtils
-import com.yoesuv.filepicker.utils.hasPermission
-import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToast
+import com.yoesuv.filepicker.utils.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
@@ -113,7 +110,7 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
-            showToast(R.string.toast_permission_read_storage_denied)
+            showToastError(R.string.toast_permission_read_storage_denied)
         }
     }
 
