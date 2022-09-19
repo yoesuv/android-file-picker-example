@@ -54,7 +54,7 @@ class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
         binding.buttonUserLocation.setOnClickListener {
             val permission = Manifest.permission.ACCESS_FINE_LOCATION
             if (hasPermission(this, permission)) {
-                viewModel.getUserLocation()
+                viewModel.getUserLocation(this)
             } else {
                 val rationale = getString(R.string.rationale_fine_location)
                 EasyPermissions.requestPermissions(this, rationale, RC_FINE_LOCATION, permission)
@@ -69,7 +69,7 @@ class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        viewModel.getUserLocation()
+        viewModel.getUserLocation(this)
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {

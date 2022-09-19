@@ -26,4 +26,6 @@
     <string name="toast_permission_access_coarse_location_denied">Permission Precise Location Denied</string>
     <string name="toast_download_success">Download Success</string>
     <string name="toast_download_failed">Download Failed</string>
+    <string name="toast_success_get_location">Success Get Location</string>
+    <string name="toast_failed_get_location">Failed Get Location</string>
 </resources>
