@@ -1,6 +1,6 @@
-## Android File Picker/Chooser & Camera + Permission ##
+## Android Picker/Chooser & Permission ##
 
-Pick a file & photo from camera in android, also permission.  
+Pick image,file,photo & location in android, also permission.  
 download apk [here](https://www.dropbox.com/s/socl0u7v93p6ayo)
 
 #### Screenshot ####
@@ -14,8 +14,12 @@ download apk [here](https://www.dropbox.com/s/socl0u7v93p6ayo)
 
 #### List Library ####
 - [EasyPermissions](https://github.com/googlesamples/easypermissions)
+- [OkHttp](https://github.com/square/okhttp)
+- [Retrofit](https://github.com/square/retrofit)
+- [Toasty](https://github.com/GrenderG/Toasty)
 
 #### References ####
 - [Stackoverflow](https://stackoverflow.com/a/65763144/3559183)
 - [Request location permissions](https://developer.android.com/training/location/permissions)
 - [Data Storage](https://developer.android.com/training/data-storage)
+- [MediaStore](https://developer.android.com/reference/android/provider/MediaStore)
