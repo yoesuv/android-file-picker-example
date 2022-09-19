@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
-import com.yoesuv.filepicker.data.RC_COARSE_LOCATION
+import com.yoesuv.filepicker.data.RC_FINE_LOCATION
 import com.yoesuv.filepicker.databinding.ActivityLocationBinding
 import com.yoesuv.filepicker.menu.location.viewmodels.LocationViewModel
 import com.yoesuv.filepicker.utils.hasPermission
@@ -52,11 +52,12 @@ class LocationActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
     private fun setupButton() {
         binding.buttonUserLocation.setOnClickListener {
-            if (hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            val permission = Manifest.permission.ACCESS_FINE_LOCATION
+            if (hasPermission(this, permission)) {
                 viewModel.getUserLocation()
             } else {
                 val rationale = getString(R.string.rationale_fine_location)
-                EasyPermissions.requestPermissions(this, rationale, RC_COARSE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                EasyPermissions.requestPermissions(this, rationale, RC_FINE_LOCATION, permission)
             }
         }
     }
