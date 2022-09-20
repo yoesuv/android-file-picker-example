@@ -2,6 +2,7 @@ package com.yoesuv.filepicker.menu.gallery.views
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
@@ -87,7 +88,10 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun observeData() {
-
+        viewModel.imageFile.observe(this) {
+            val bitmap = BitmapFactory.decodeFile(it.absolutePath)
+            binding.ivGallery.setImageBitmap(bitmap)
+        }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
