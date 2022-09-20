@@ -8,3 +8,7 @@ const val RC_WRITE_EXTERNAL_STORAGE = 26
 
 const val BASE_URL = "https://raw.githubusercontent.com"
 const val DOWNLOAD_LINK = "yoesuv/GetX-Playground/master/Sample%20Document%20pdf.pdf"
+
+const val COMPRESSOR_QUALITY = 90
+const val COMPRESSOR_WIDTH = 1224
+const val COMPRESSOR_HEIGHT = 1632
