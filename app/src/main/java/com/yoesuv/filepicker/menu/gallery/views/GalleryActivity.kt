@@ -28,7 +28,7 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             if (result.resultCode == RESULT_OK) {
                 val uriData = result.data?.data
                 logDebug("GalleryActivity # uri : $uriData")
-                viewModel.imageUri.postValue(uriData)
+                viewModel.setImageFile(this, uriData)
             }
         }
 
@@ -87,12 +87,7 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun observeData() {
-        viewModel.imageUri.observe(this) { uri ->
-            if (uri != null) {
-                binding.ivGallery.setImageURI(uri)
-                binding.tvGalleryPath.text = uri.path
-            }
-        }
+
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
