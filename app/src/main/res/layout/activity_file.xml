@@ -14,11 +14,32 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="@{file.fileName}"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            tools:text="File Name : Sample_document.pdf" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="@{file.fileSize}"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            tools:text="File Size : 193 Kb" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvFilePath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
+            android:text="@{file.filePath}"
             android:textSize="14sp"
             android:textColor="@android:color/black"
             tools:text="@tools:sample/lorem" />

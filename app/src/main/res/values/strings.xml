@@ -14,6 +14,8 @@
 
     <string name="select_an_image">Select an image</string>
     <string name="take_a_picture">Take a Picture</string>
+    <string name="file_name">File Name : %1$s</string>
+    <string name="file_size">File Size : %1$s</string>
 
     <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>

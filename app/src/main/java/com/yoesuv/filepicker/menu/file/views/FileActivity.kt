@@ -3,7 +3,6 @@ package com.yoesuv.filepicker.menu.file.views
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.text.format.Formatter
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -16,7 +15,6 @@ import com.yoesuv.filepicker.menu.file.viewmodels.FileViewModel
 import com.yoesuv.filepicker.utils.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
-import java.io.File
 
 class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
@@ -25,20 +23,9 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private val startForResultFile = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-            try {
-                val uriData = result.data?.data
-                uriData?.let { uri ->
-                    viewModel.fileUri.postValue(uri)
-                    val fileName = MyFileUtils.getFileName(this, uri)
-                    val cacheDir = cacheDir.path + File.separator
-                    val inputStream = contentResolver.openInputStream(uri)
-                    val tempFile = File(cacheDir + fileName)
-                    MyFileUtils.copyToTempFile(inputStream, tempFile)
-                    val fileSize = Formatter.formatFileSize(this, tempFile.length())
-                    logDebug("FileActivity # file name:${tempFile.name}/size:$fileSize")
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
+            val uriData = result.data?.data
+            uriData?.let {
+                viewModel.setSelectedFile(this, it)
             }
         }
     }
@@ -51,7 +38,6 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
         setupToolbar()
         setupButton()
-        observeData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -89,17 +75,8 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "*/*"
         startForResultFile.launch(intent)
-    }
-
-    private fun observeData() {
-        viewModel.fileUri.observe(this) { uri ->
-            uri?.let {
-                binding.tvFilePath.text = it.path
-            }
-        }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
