@@ -42,7 +42,7 @@
             android:text="@{file.filePath}"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            tools:text="@tools:sample/lorem" />
+            tools:text="/Storage/0/Download/sample_document.pdf" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonChooseFile"
