@@ -2,6 +2,7 @@ package com.yoesuv.filepicker.menu.file.viewmodels
 
 import android.content.Context
 import android.net.Uri
+import android.os.Environment
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.yoesuv.filepicker.R
@@ -20,14 +21,15 @@ class FileViewModel: ViewModel() {
     fun setSelectedFile(context: Context, uri: Uri) {
         logDebug("FileViewModel # setSelectedFile ${uri.path}")
         try {
-            val strFileName = context.getString(R.string.file_name, getFileName(context, uri))
+            val theFileName = getFileName(context, uri)
+            val strFileName = context.getString(R.string.file_name, theFileName)
             val strFileSize = context.getString(R.string.file_size, getFileSize(context, uri))
             fileName.set(strFileName)
             fileSize.set(strFileSize)
 
-            val cacheDir = context.cacheDir.path + File.separator
+            val cacheDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.path + File.separator
             val inputStream = context.contentResolver.openInputStream(uri)
-            val tempFile = File(cacheDir + getFileName(context, uri))
+            val tempFile = File(cacheDir + theFileName)
             copyToTempFile(inputStream, tempFile)
             filePath.set(tempFile.absolutePath)
 

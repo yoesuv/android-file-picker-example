@@ -75,8 +75,10 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "*/*"
-        startForResultFile.launch(intent)
+        val chooser = Intent.createChooser(intent, getString(R.string.button_choose_file))
+        startForResultFile.launch(chooser)
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
