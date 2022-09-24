@@ -3,12 +3,10 @@ package com.yoesuv.filepicker.menu.camera.views
 import android.Manifest
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RC_CAMERA
@@ -18,17 +16,16 @@ import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.showToastError
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
-import java.io.File
 
 class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityCameraBinding
     private val viewModel: CameraViewModel by viewModels()
-    private lateinit var photoUri: Uri
+    private var photoUri: Uri? = null
 
     private val startForCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
-            viewModel.imageUri.postValue(photoUri)
+            viewModel.setPhotoUri(this, photoUri)
         } else {
             showToastError(R.string.toast_failed_get_image_camera)
         }
@@ -39,6 +36,8 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_camera)
         binding.lifecycleOwner = this
         binding.camera = viewModel
+
+        photoUri = viewModel.uriCamera(this)
 
         setupToolbar()
         setupButton()
@@ -52,11 +51,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
@@ -78,19 +73,14 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
     }
 
     private fun observeData() {
-        viewModel.imageUri.observe(this) { uri ->
-            if (uri != null) {
-                binding.ivCamera.setImageURI(uri)
-                binding.tvCameraPath.text = uri.path
+        viewModel.imagePath.observe(this) { path ->
+            if (path != null) {
+                binding.tvCameraPath.text = path
             }
         }
     }
 
     private fun openCamera() {
-        val packageName = applicationContext.packageName
-        val photoFile =
-            File.createTempFile("IMG_", ".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES))
-        photoUri = FileProvider.getUriForFile(this, "$packageName.provider", photoFile)
         startForCamera.launch(photoUri)
     }
 
