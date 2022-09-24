@@ -30,4 +30,5 @@
     <string name="toast_download_failed">Download Failed</string>
     <string name="toast_success_get_location">Success Get Location</string>
     <string name="toast_failed_get_location">Failed Get Location</string>
+    <string name="toast_failed_get_image_camera">Failed Get Image from Camera</string>
 </resources>

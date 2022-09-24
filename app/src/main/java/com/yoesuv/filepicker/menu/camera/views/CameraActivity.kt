@@ -15,7 +15,6 @@ import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.databinding.ActivityCameraBinding
 import com.yoesuv.filepicker.menu.camera.viewmodels.CameraViewModel
 import com.yoesuv.filepicker.utils.hasPermission
-import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToastError
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -27,13 +26,13 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
     private val viewModel: CameraViewModel by viewModels()
     private lateinit var photoUri: Uri
 
-    private val startForCamera =
-        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-            if (success) {
-                logDebug("CameraActivity # take photo success: $photoUri")
-                viewModel.imageUri.postValue(photoUri)
-            }
+    private val startForCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        if (success) {
+            viewModel.imageUri.postValue(photoUri)
+        } else {
+            showToastError(R.string.toast_failed_get_image_camera)
         }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,12 +72,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
                 openCamera()
             } else {
                 val rationale = getString(R.string.rationale_open_camera)
-                EasyPermissions.requestPermissions(
-                    this,
-                    rationale,
-                    RC_CAMERA,
-                    Manifest.permission.CAMERA
-                )
+                EasyPermissions.requestPermissions(this, rationale, RC_CAMERA, Manifest.permission.CAMERA)
             }
         }
     }
