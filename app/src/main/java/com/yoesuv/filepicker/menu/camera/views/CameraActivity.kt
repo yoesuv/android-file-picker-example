@@ -1,6 +1,7 @@
 package com.yoesuv.filepicker.menu.camera.views
 
 import android.Manifest
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -25,7 +26,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
 
     private val startForCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
-            viewModel.setPhotoUri(this, photoUri)
+            viewModel.setPhotoUri(this)
         } else {
             showToastError(R.string.toast_failed_get_image_camera)
         }
@@ -76,6 +77,12 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
         viewModel.imagePath.observe(this) { path ->
             if (path != null) {
                 binding.tvCameraPath.text = path
+            }
+        }
+        viewModel.imageFile.observe(this) { file ->
+            if (file != null) {
+                val bmp = BitmapFactory.decodeFile(file.absolutePath)
+                binding.ivCamera.setImageBitmap(bmp)
             }
         }
     }
