@@ -1,7 +1,6 @@
 package com.yoesuv.filepicker.menu.camera.views
 
 import android.Manifest
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.databinding.ActivityCameraBinding
@@ -76,10 +76,10 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
     private fun observeData() {
         viewModel.imageFile.observe(this) { file ->
             if (file != null) {
-                val strPath = file.absolutePath
-                binding.tvCameraPath.text = strPath
-                val bmp = BitmapFactory.decodeFile(strPath)
-                binding.ivCamera.setImageBitmap(bmp)
+                binding.tvCameraPath.text = file.absolutePath
+                Glide.with(this).load(file)
+                    .dontAnimate()
+                    .into(binding.ivCamera)
             }
         }
     }
