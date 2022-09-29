@@ -27,8 +27,6 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
     private val startForCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
             viewModel.setPhotoUri(this, photoUri)
-        } else {
-            showToastError(R.string.toast_failed_get_image_camera)
         }
     }
 
@@ -78,6 +76,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
             if (file != null) {
                 binding.tvCameraPath.text = file.absolutePath
                 Glide.with(this).load(file)
+                    .centerCrop()
                     .dontAnimate()
                     .into(binding.ivCamera)
             }

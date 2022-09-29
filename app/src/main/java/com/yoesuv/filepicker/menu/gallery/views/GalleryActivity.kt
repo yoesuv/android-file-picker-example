@@ -90,6 +90,7 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     private fun observeData() {
         viewModel.imageFile.observe(this) {
             Glide.with(this).load(it)
+                .centerCrop()
                 .dontAnimate()
                 .into(binding.ivGallery)
         }
