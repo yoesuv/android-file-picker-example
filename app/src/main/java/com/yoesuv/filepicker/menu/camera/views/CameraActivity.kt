@@ -26,7 +26,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
 
     private val startForCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
-            viewModel.setPhotoUri(this)
+            viewModel.setPhotoUri(this, photoUri)
         } else {
             showToastError(R.string.toast_failed_get_image_camera)
         }
@@ -74,14 +74,11 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
     }
 
     private fun observeData() {
-        viewModel.imagePath.observe(this) { path ->
-            if (path != null) {
-                binding.tvCameraPath.text = path
-            }
-        }
         viewModel.imageFile.observe(this) { file ->
             if (file != null) {
-                val bmp = BitmapFactory.decodeFile(file.absolutePath)
+                val strPath = file.absolutePath
+                binding.tvCameraPath.text = strPath
+                val bmp = BitmapFactory.decodeFile(strPath)
                 binding.ivCamera.setImageBitmap(bmp)
             }
         }

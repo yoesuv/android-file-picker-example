@@ -20,7 +20,6 @@ import java.io.File
 
 class CameraViewModel: ViewModel() {
 
-    var imagePath: MutableLiveData<String?> = MutableLiveData()
     var imageFile: MutableLiveData<File?> = MutableLiveData()
     private var photoFile: File? = null
 
@@ -35,16 +34,18 @@ class CameraViewModel: ViewModel() {
         }
     }
 
-    fun setPhotoUri(context: Context) {
+    fun setPhotoUri(context: Context, uri: Uri?) {
         viewModelScope.launch {
             if (photoFile != null) {
-                logDebug("CameraViewModel # file original path : ${photoFile!!.absolutePath}")
-                imagePath.postValue(photoFile!!.absolutePath)
                 val fileCompressed = Compressor.compress(context, photoFile!!) {
                     default(width = COMPRESSOR_WIDTH, height = COMPRESSOR_HEIGHT, quality = COMPRESSOR_QUALITY)
                 }
                 logDebug("CameraViewModel # file compressed path : ${fileCompressed.absolutePath}")
                 imageFile.postValue(fileCompressed)
+                // delete image from camera
+                uri?.let {
+                    context.contentResolver.delete(it, null, null)
+                }
             } else {
                 context.showToastError(R.string.toast_failed_get_image_camera)
             }
