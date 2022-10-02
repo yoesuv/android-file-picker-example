@@ -36,8 +36,6 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
         binding.lifecycleOwner = this
         binding.camera = viewModel
 
-        photoUri = viewModel.uriCamera(this)
-
         setupToolbar()
         setupButton()
         observeData()
@@ -84,6 +82,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
     }
 
     private fun openCamera() {
+        photoUri = viewModel.uriCamera(this)
         startForCamera.launch(photoUri)
     }
 
