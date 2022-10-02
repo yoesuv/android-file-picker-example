@@ -1,5 +1,13 @@
 package com.yoesuv.filepicker.data
 
+import android.Manifest
+
+// kind permission
+const val PERM_CAMERA = Manifest.permission.CAMERA
+const val PERM_WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE
+const val PERM_READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
+const val PERM_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
+
 // req code permission
 const val RC_READ_EXTERNAL_STORAGE = 23
 const val RC_FINE_LOCATION = 24

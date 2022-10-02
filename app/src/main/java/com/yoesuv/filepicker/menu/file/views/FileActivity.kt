@@ -1,6 +1,5 @@
 package com.yoesuv.filepicker.menu.file.views
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.PERM_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityFileBinding
 import com.yoesuv.filepicker.menu.file.viewmodels.FileViewModel
@@ -59,15 +59,14 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun setupButton() {
         binding.buttonChooseFile.setOnClickListener {
-            if (hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (hasPermission(this, PERM_READ_EXTERNAL_STORAGE)) {
                 openFilePicker()
             } else {
                 val rationale = getString(R.string.rationale_read_storage)
-                EasyPermissions.requestPermissions(
-                    this,
+                EasyPermissions.requestPermissions(this,
                     rationale,
                     RC_READ_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    PERM_READ_EXTERNAL_STORAGE
                 )
             }
         }

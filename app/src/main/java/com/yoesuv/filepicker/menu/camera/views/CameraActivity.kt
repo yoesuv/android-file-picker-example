@@ -1,6 +1,5 @@
 package com.yoesuv.filepicker.menu.camera.views
 
-import android.Manifest
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.PERM_CAMERA
 import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.databinding.ActivityCameraBinding
 import com.yoesuv.filepicker.menu.camera.viewmodels.CameraViewModel
@@ -60,11 +60,11 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
 
     private fun setupButton() {
         binding.buttonOpenCamera.setOnClickListener {
-            if (hasPermission(this, Manifest.permission.CAMERA)) {
+            if (hasPermission(this, PERM_CAMERA)) {
                 openCamera()
             } else {
                 val rationale = getString(R.string.rationale_open_camera)
-                EasyPermissions.requestPermissions(this, rationale, RC_CAMERA, Manifest.permission.CAMERA)
+                EasyPermissions.requestPermissions(this, rationale, RC_CAMERA, PERM_CAMERA)
             }
         }
     }

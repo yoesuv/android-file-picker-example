@@ -1,6 +1,5 @@
 package com.yoesuv.filepicker.menu.gallery.views
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.PERM_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityGalleryBinding
 import com.yoesuv.filepicker.menu.gallery.viewmodels.GalleryViewModel
@@ -51,11 +51,7 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
@@ -67,7 +63,7 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
     private fun setupButton() {
         binding.buttonOpenGallery.setOnClickListener {
-            if (hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (hasPermission(this, PERM_READ_EXTERNAL_STORAGE)) {
                 openGallery()
             } else {
                 val rationale = getString(R.string.rationale_read_storage_gallery)
@@ -75,7 +71,7 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                     this,
                     rationale,
                     RC_READ_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    PERM_READ_EXTERNAL_STORAGE
                 )
             }
         }

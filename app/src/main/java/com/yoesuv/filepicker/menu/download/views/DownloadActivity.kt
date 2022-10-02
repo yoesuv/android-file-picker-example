@@ -1,6 +1,5 @@
 package com.yoesuv.filepicker.menu.download.views
 
-import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.PERM_WRITE_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.data.RC_WRITE_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityDownloadBinding
 import com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel
@@ -64,15 +64,14 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun setupDownloadSDK28() {
-        if (hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (hasPermission(this, PERM_WRITE_EXTERNAL_STORAGE)) {
             viewModel.downloadFile(this)
         } else {
             val rationale = getString(R.string.rationale_write_storage)
-            EasyPermissions.requestPermissions(
-                this,
+            EasyPermissions.requestPermissions(this,
                 rationale,
                 RC_WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                PERM_WRITE_EXTERNAL_STORAGE
             )
         }
     }
