@@ -1,12 +1,34 @@
 <resources>
-    <string name="app_name">File Picker &amp; Permission</string>
+    <string name="app_name">Picker &amp; Permission</string>
 
-    <string name="button_file_chooser">Choose File</string>
-    <string name="button_camera">Take Photo</string>
-    <string name="button_location">Take Location</string>
+    <string name="button_file">File</string>
+    <string name="button_camera">Camera</string>
+    <string name="button_location">Location</string>
+    <string name="button_gallery">Gallery</string>
+    <string name="button_open_gallery">Open Gallery</string>
+    <string name="button_open_camera">Open Camera</string>
+    <string name="button_choose_file">Choose File</string>
+    <string name="button_user_location">User Location</string>
+    <string name="button_download">Download</string>
+    <string name="button_download_file">Download File</string>
 
+    <string name="select_an_image">Select an image</string>
+    <string name="take_a_picture">Take a Picture</string>
+    <string name="file_name">File Name : %1$s</string>
+    <string name="file_size">File Size : %1$s</string>
+
+    <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>
+    <string name="rationale_write_storage">This app needs access to your storage to save a file</string>
+    <string name="rationale_open_camera">This app needs access to your camera to take a photo.</string>
     <string name="rationale_fine_location">This app needs access to your precise location.</string>
     <string name="toast_permission_read_storage_denied">Permission Read Storage Denied</string>
-    <string name="toast_permission_access_fine_location_denied">Permission Precise Location Denied</string>
+    <string name="toast_permission_write_storage_denied">Permission Write Storage Denied</string>
+    <string name="toast_permission_camera_denied">Permission Camera Denied</string>
+    <string name="toast_permission_access_coarse_location_denied">Permission Precise Location Denied</string>
+    <string name="toast_download_success">Download Success</string>
+    <string name="toast_download_failed">Download Failed</string>
+    <string name="toast_success_get_location">Success Get Location</string>
+    <string name="toast_failed_get_location">Failed Get Location</string>
+    <string name="toast_failed_get_image_camera">Failed Get Image from Camera</string>
 </resources>

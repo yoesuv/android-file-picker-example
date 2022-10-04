@@ -1,22 +1,29 @@
-## Android File Picker/Chooser & Camera + Permission ##
+## Android Picker/Chooser & Permission ##
 
-Pick a file & photo from camera in android. also permission.  
-download apk [here](https://www.dropbox.com/s/socl0u7v93p6ayo)
-
-sample file selected  
-```D/result_debug: MainActivity # file name:Sample Document.pdf/size:8.24 kB```  
-
-sample photo from camera  
-```D/result_debug: MainActivity # take photo success: content://com.yoesuv.filepicker.provider/file_picker_images/Android/data/com.yoesuv.filepicker/files/Pictures/IMG_4591579082172412793.jpg```
+Pick image,file,photo & location in android, also permission.  
+download apk [here](https://www.dropbox.com/s/2iunco3racqqhcv)
 
 #### Screenshot ####
-| ![](https://images2.imgbox.com/bc/43/aQK5FQ42_o.png) | ![](https://i.imgur.com/L1LC1Ev.png) | ![](https://i.imgur.com/mvGNubg.png) | ![](https://i.imgur.com/w6YprKq.png) |
-| :---: | :---: | :---: | :---: |
-| ![](https://i.imgur.com/57eBH4s.png) | ![API 30](https://images2.imgbox.com/67/11/G2lh5hIZ_o.png) | ![API 31](https://images2.imgbox.com/ee/a6/7kSN82pf_o.png) | - |
+| Home | Permission Gallery | Gallery  | Permission Camera |
+| :---: | :---: |:---:| :---: |
+| ![](https://images2.imgbox.com/0c/34/amR5inir_o.png) | ![](https://images2.imgbox.com/30/21/X7AUK3QZ_o.png) | ![](https://images2.imgbox.com/85/8d/gon4dI7N_o.png) | ![](https://images2.imgbox.com/84/f1/HuADVrB0_o.png) |
+| Camera | Permission File | File  | Permission Location |
+| ![](https://images2.imgbox.com/63/c7/Gs7MQAN8_o.png) | ![](https://images2.imgbox.com/b5/05/iqGltMPd_o.png) | ![](https://images2.imgbox.com/ec/fa/YlO83VfW_o.png) | ![](https://images2.imgbox.com/01/cd/PJcM33Yo_o.png) |
+| Location | Download | - | - |
+| ![](https://images2.imgbox.com/98/16/9AHqvG9u_o.png) | ![](https://images2.imgbox.com/6c/d9/NBClsPFm_o.png) | - | - |
 
 #### List Library ####
+- [Compressor](https://github.com/zetbaitsu/Compressor)
 - [EasyPermissions](https://github.com/googlesamples/easypermissions)
+- [Glide](https://github.com/bumptech/glide)
+- [OkHttp](https://github.com/square/okhttp)
+- [Retrofit](https://github.com/square/retrofit)
+- [Toasty](https://github.com/GrenderG/Toasty)
 
 #### References ####
 - [Stackoverflow](https://stackoverflow.com/a/65763144/3559183)
 - [Request location permissions](https://developer.android.com/training/location/permissions)
+- [Data Storage](https://developer.android.com/training/data-storage)
+- [MediaStore](https://developer.android.com/reference/android/provider/MediaStore)
+- [File Info](https://developer.android.com/training/secure-file-sharing/retrieve-info)
+- [proandroiddev](https://proandroiddev.com/how-to-optimize-memory-consumption-when-using-glide-9ac984cfe70f)

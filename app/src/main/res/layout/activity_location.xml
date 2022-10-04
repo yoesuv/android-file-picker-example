@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="location"
+            type="com.yoesuv.filepicker.menu.location.viewmodels.LocationViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvUserLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            tools:text="-7.156783, 114.968754" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonUserLocation"
+            style="@style/ButtonTheme"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/button_user_location"/>
+
+    </LinearLayout>
+
+</layout>
