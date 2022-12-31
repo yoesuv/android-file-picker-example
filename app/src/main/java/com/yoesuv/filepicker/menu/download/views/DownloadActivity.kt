@@ -35,7 +35,7 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            this.onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
