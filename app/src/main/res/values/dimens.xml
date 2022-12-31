@@ -2,4 +2,5 @@
 <resources>
     <dimen name="button_width">200dp</dimen>
     <dimen name="image_view_height">250dp</dimen>
+    <dimen name="button_text_size">16sp</dimen>
 </resources>

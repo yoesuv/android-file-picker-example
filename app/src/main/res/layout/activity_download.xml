@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/button_download_file"/>
+            android:text="@string/button_download_file"
+            android:textSize="@dimen/button_text_size"/>
 
     </LinearLayout>
 
