@@ -1,6 +1,7 @@
 package com.yoesuv.filepicker.utils
 
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import androidx.annotation.StringRes
 import com.yoesuv.filepicker.BuildConfig
@@ -20,4 +21,8 @@ fun Context.showToastSuccess(@StringRes message: Int) {
 
 fun Context.showToastError(@StringRes message: Int) {
     Toasty.error(this, message).show()
+}
+
+fun isTiramisu(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 }

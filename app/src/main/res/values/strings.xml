@@ -18,6 +18,7 @@
     <string name="file_size">File Size : %1$s</string>
 
     <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
+    <string name="rationale_media_images">This app needs access to your media images to choose an image.</string>
     <string name="rationale_read_storage">This app needs access to your storage to choose a file.</string>
     <string name="rationale_write_storage">This app needs access to your storage to save a file</string>
     <string name="rationale_open_camera">This app needs access to your camera to take a photo.</string>
@@ -26,6 +27,7 @@
     <string name="toast_permission_write_storage_denied">Permission Write Storage Denied</string>
     <string name="toast_permission_camera_denied">Permission Camera Denied</string>
     <string name="toast_permission_access_coarse_location_denied">Permission Precise Location Denied</string>
+    <string name="toast_permission_images_denied">Permission Media Images Denied</string>
     <string name="toast_download_success">Download Success</string>
     <string name="toast_download_failed">Download Failed</string>
     <string name="toast_success_get_location">Success Get Location</string>

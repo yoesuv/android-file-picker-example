@@ -10,10 +10,12 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.PERM_READ_EXTERNAL_STORAGE
+import com.yoesuv.filepicker.data.PERM_READ_MEDIA_IMAGES
 import com.yoesuv.filepicker.data.RC_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityGalleryBinding
 import com.yoesuv.filepicker.menu.gallery.viewmodels.GalleryViewModel
 import com.yoesuv.filepicker.utils.hasPermission
+import com.yoesuv.filepicker.utils.isTiramisu
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToastError
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -62,16 +64,18 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun setupButton() {
+        val thePermission = if (isTiramisu()) PERM_READ_MEDIA_IMAGES else PERM_READ_EXTERNAL_STORAGE
         binding.buttonOpenGallery.setOnClickListener {
-            if (hasPermission(this, PERM_READ_EXTERNAL_STORAGE)) {
+            if (hasPermission(this, thePermission)) {
                 openGallery()
             } else {
-                val rationale = getString(R.string.rationale_read_storage_gallery)
+                val msg1 = getString(R.string.rationale_media_images)
+                val msg2 = getString(R.string.rationale_read_storage_gallery)
                 EasyPermissions.requestPermissions(
                     this,
-                    rationale,
+                    if (isTiramisu()) msg1 else msg2,
                     RC_READ_EXTERNAL_STORAGE,
-                    PERM_READ_EXTERNAL_STORAGE
+                    thePermission
                 )
             }
         }
@@ -100,7 +104,10 @@ class GalleryActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         } else {
-            showToastError(R.string.toast_permission_read_storage_denied)
+            val msg1 = R.string.toast_permission_images_denied
+            val msg2 = R.string.toast_permission_read_storage_denied
+            val msgDenied = if (isTiramisu()) msg1 else msg2
+            showToastError(msgDenied)
         }
     }
 
