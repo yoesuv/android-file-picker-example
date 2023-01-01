@@ -59,15 +59,20 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun setupButton() {
         binding.buttonChooseFile.setOnClickListener {
-            if (hasPermission(this, PERM_READ_EXTERNAL_STORAGE)) {
+            if (isTiramisu()) {
                 openFilePicker()
             } else {
-                val rationale = getString(R.string.rationale_read_storage)
-                EasyPermissions.requestPermissions(this,
-                    rationale,
-                    RC_READ_EXTERNAL_STORAGE,
-                    PERM_READ_EXTERNAL_STORAGE
-                )
+                if (hasPermission(this, PERM_READ_EXTERNAL_STORAGE)) {
+                    openFilePicker()
+                } else {
+                    val rationale = getString(R.string.rationale_read_storage)
+                    EasyPermissions.requestPermissions(
+                        this,
+                        rationale,
+                        RC_READ_EXTERNAL_STORAGE,
+                        PERM_READ_EXTERNAL_STORAGE
+                    )
+                }
             }
         }
     }
