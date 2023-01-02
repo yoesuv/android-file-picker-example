@@ -59,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/button_open_camera"/>
+            android:text="@string/button_open_camera"
+            android:textSize="@dimen/button_text_size"/>
 
     </LinearLayout>
 

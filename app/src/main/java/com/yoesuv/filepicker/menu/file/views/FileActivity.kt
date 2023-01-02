@@ -42,7 +42,7 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            this.onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -59,15 +59,20 @@ class FileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun setupButton() {
         binding.buttonChooseFile.setOnClickListener {
-            if (hasPermission(this, PERM_READ_EXTERNAL_STORAGE)) {
+            if (isTiramisu()) {
                 openFilePicker()
             } else {
-                val rationale = getString(R.string.rationale_read_storage)
-                EasyPermissions.requestPermissions(this,
-                    rationale,
-                    RC_READ_EXTERNAL_STORAGE,
-                    PERM_READ_EXTERNAL_STORAGE
-                )
+                if (hasPermission(this, PERM_READ_EXTERNAL_STORAGE)) {
+                    openFilePicker()
+                } else {
+                    val rationale = getString(R.string.rationale_read_storage)
+                    EasyPermissions.requestPermissions(
+                        this,
+                        rationale,
+                        RC_READ_EXTERNAL_STORAGE,
+                        PERM_READ_EXTERNAL_STORAGE
+                    )
+                }
             }
         }
     }
