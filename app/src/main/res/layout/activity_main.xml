@@ -24,6 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMenuGallery"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
