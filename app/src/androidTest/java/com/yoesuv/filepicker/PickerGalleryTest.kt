@@ -34,6 +34,7 @@ class PickerGalleryTest {
 
     private val delay = 1000L
     private lateinit var context: Context
+    private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
@@ -61,6 +62,11 @@ class PickerGalleryTest {
         )
         if (allowPermission.exists()) {
             allowPermission.click()
+            SystemClock.sleep(delay)
+            device.pressBack()
         }
+        SystemClock.sleep(delay)
+        device.pressBack()
+        SystemClock.sleep(delay)
     }
 }
