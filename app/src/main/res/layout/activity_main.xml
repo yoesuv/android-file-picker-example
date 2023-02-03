@@ -33,6 +33,7 @@
                 android:onClick="@{main::clickGallery}"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMenuCamera"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
