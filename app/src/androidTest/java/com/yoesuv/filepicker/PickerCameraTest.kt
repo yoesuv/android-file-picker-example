@@ -67,6 +67,11 @@ class PickerCameraTest {
                 .text(Pattern.compile(""))
                 .pkg("com.android.camera2"))
                 .clickAndWait(Until.newWindow(), 2000)
+            SystemClock.sleep(delay)
+            UiDevice.getInstance(instrumentation).findObject(By.res("com.android.camera2:id/done_button")
+                .pkg("com.android.camera2"))
+                .click()
+            SystemClock.sleep(delay)
         }
         SystemClock.sleep(delay)
         device.pressBack()
