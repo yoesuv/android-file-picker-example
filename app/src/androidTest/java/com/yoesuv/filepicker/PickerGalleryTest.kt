@@ -37,10 +37,6 @@ class PickerGalleryTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
-//    @get:Rule
-//    var galleryRule = GrantPermissionRule.grant(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-//    @get:Rule
-//    var galleryRule33 = GrantPermissionRule.grant(android.Manifest.permission.READ_MEDIA_IMAGES)
 
     @Before
     fun register() {
@@ -61,7 +57,7 @@ class PickerGalleryTest {
         SystemClock.sleep(delay)
         SystemClock.sleep(delay)
         val allowPermission = UiDevice.getInstance(instrumentation).findObject(
-            UiSelector().clickable(true).checkable(false).index(1)
+            UiSelector().text("Allow")
         )
         if (allowPermission.exists()) {
             allowPermission.click()
