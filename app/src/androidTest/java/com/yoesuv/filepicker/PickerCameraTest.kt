@@ -10,8 +10,10 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
+import androidx.test.uiautomator.Until
 import com.yoesuv.filepicker.menu.main.views.MainActivity
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -19,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
+import java.util.regex.Pattern
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -55,7 +58,15 @@ class PickerCameraTest {
         if (allowPermission.exists()) {
             allowPermission.click()
             SystemClock.sleep(delay)
-            device.pressBack()
+            SystemClock.sleep(delay)
+
+            // click shutter camera
+            UiDevice.getInstance(instrumentation).findObject(By.res("com.android.camera2:id/shutter_button")
+                .desc("Shutter")
+                .clazz("android.widget.ImageView")
+                .text(Pattern.compile(""))
+                .pkg("com.android.camera2"))
+                .clickAndWait(Until.newWindow(), 2000)
         }
         SystemClock.sleep(delay)
         device.pressBack()
