@@ -30,6 +30,16 @@ android {
     buildFeatures {
         dataBinding true
     }
+    flavorDimensions "default"
+    productFlavors {
+        forTest {
+            resValue "string", "app_name", "Picker & Permission TEST"
+            applicationIdSuffix ".test"
+        }
+        production {
+            resValue "string", "app_name", "Picker & Permission"
+        }
+    }
 }
 
 dependencies {
