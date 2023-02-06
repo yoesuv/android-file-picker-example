@@ -14,6 +14,7 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
+import com.yoesuv.filepicker.TestData.delay
 import com.yoesuv.filepicker.menu.main.views.MainActivity
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -28,7 +29,6 @@ import java.util.regex.Pattern
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PickerCameraTest {
 
-    private val delay = 1000L
     private lateinit var context: Context
     private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
