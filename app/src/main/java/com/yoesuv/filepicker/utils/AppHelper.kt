@@ -26,3 +26,7 @@ fun Context.showToastError(@StringRes message: Int) {
 fun isTiramisu(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 }
+
+fun forTest(): Boolean {
+    return BuildConfig.FLAVOR.equals("forTest", true)
+}
