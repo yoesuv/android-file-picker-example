@@ -2,10 +2,10 @@ package com.yoesuv.filepicker
 
 import android.content.Context
 import android.os.SystemClock
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -44,13 +44,12 @@ class PickerCameraTest {
     fun pickFromCamera() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
 
-        Espresso.onView(ViewMatchers.withText(context.getString(R.string.button_camera)))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withText(context.getString(R.string.button_camera))).check(matches(isDisplayed()))
         SystemClock.sleep(delay)
-        Espresso.onView(ViewMatchers.withId(R.id.btnMenuCamera)).perform(ViewActions.click())
+        onView(withId(R.id.btnMenuCamera)).perform(click())
         SystemClock.sleep(delay)
 
-        Espresso.onView(ViewMatchers.withId(R.id.buttonOpenCamera)).perform(ViewActions.click())
+        onView(withId(R.id.buttonOpenCamera)).perform(click())
         SystemClock.sleep(delay)
         val allowPermission = UiDevice.getInstance(instrumentation).findObject(
             UiSelector().text("While using the app")
