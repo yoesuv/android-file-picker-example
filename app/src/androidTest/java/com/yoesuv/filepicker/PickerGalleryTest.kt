@@ -62,6 +62,23 @@ class PickerGalleryTest {
         if (allowPermission.exists()) {
             allowPermission.click()
             SystemClock.sleep(delay)
+            // open gallery
+            val gallery = UiDevice.getInstance(instrumentation).findObject(
+                UiSelector().text("Gallery")
+            )
+            if (gallery.exists()) {
+                gallery.click()
+                SystemClock.sleep(delay)
+                val always = UiDevice.getInstance(instrumentation).findObject(
+                    UiSelector().text("Always")
+                )
+                if (always.exists()) {
+                    always.click()
+                    SystemClock.sleep(delay)
+                    device.pressBack()
+                }
+            }
+            SystemClock.sleep(delay)
             device.pressBack()
         }
         SystemClock.sleep(delay)
