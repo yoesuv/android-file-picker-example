@@ -30,10 +30,14 @@ class LocationViewModel: ViewModel() {
             }
             if (task.isSuccessful) {
                 val location = task.result
-                val latLng = "${location.latitude}, ${location.longitude}"
-                logDebug("LocationViewModel # location $latLng")
-                userLocation.postValue(latLng)
-                context.showToastSuccess(R.string.toast_success_get_location)
+                if (location != null) {
+                    val latLng = "${location.latitude}, ${location.longitude}"
+                    logDebug("LocationViewModel # location $latLng")
+                    userLocation.postValue(latLng)
+                    context.showToastSuccess(R.string.toast_success_get_location)
+                } else {
+                    context.showToastError(R.string.toast_failed_get_location)
+                }
             } else {
                 logError("LocationViewModel # failed get location")
                 context.showToastError(R.string.toast_failed_get_location)
