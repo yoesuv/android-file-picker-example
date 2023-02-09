@@ -9,8 +9,8 @@ android {
         applicationId "com.yoesuv.filepicker"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 4
-        versionName "2.3.0"
+        versionCode 5
+        versionName "2.3.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
