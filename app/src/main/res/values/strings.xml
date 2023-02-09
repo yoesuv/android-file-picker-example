@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Picker &amp; Permission</string>
-
     <string name="button_file">File</string>
     <string name="button_camera">Camera</string>
     <string name="button_location">Location</string>

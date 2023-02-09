@@ -7,10 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yoesuv.filepicker.R
-import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.logError
-import com.yoesuv.filepicker.utils.showToastError
-import com.yoesuv.filepicker.utils.showToastSuccess
+import com.yoesuv.filepicker.utils.*
 
 class LocationViewModel: ViewModel() {
 
@@ -24,13 +21,24 @@ class LocationViewModel: ViewModel() {
     @SuppressLint("MissingPermission")
     fun getUserLocation(context: Context) {
         userLocation.postValue("Processing")
+        if (forTest()) IdlingResource.increment()
         fusedLocationClient.lastLocation.addOnCompleteListener { task ->
+            if (forTest()) {
+                if(!IdlingResource.idlingresource.isIdleNow) {
+                    IdlingResource.decrement()
+                }
+            }
             if (task.isSuccessful) {
                 val location = task.result
-                val latLng = "${location.latitude}, ${location.longitude}"
-                logDebug("LocationViewModel # location $latLng")
-                userLocation.postValue(latLng)
-                context.showToastSuccess(R.string.toast_success_get_location)
+                if (location != null) {
+                    val latLng = "${location.latitude}, ${location.longitude}"
+                    logDebug("LocationViewModel # location $latLng")
+                    userLocation.postValue(latLng)
+                    context.showToastSuccess(R.string.toast_success_get_location)
+                } else {
+                    userLocation.postValue("")
+                    context.showToastError(R.string.toast_failed_get_location)
+                }
             } else {
                 logError("LocationViewModel # failed get location")
                 context.showToastError(R.string.toast_failed_get_location)
