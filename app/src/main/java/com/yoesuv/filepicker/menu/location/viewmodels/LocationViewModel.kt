@@ -36,6 +36,7 @@ class LocationViewModel: ViewModel() {
                     userLocation.postValue(latLng)
                     context.showToastSuccess(R.string.toast_success_get_location)
                 } else {
+                    userLocation.postValue("")
                     context.showToastError(R.string.toast_failed_get_location)
                 }
             } else {
