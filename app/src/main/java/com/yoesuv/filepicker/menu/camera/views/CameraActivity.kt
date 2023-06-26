@@ -10,21 +10,26 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.PERM_CAMERA
-import com.yoesuv.filepicker.data.RC_CAMERA
 import com.yoesuv.filepicker.databinding.ActivityCameraBinding
 import com.yoesuv.filepicker.menu.camera.viewmodels.CameraViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.showToastError
-import pub.devrel.easypermissions.AppSettingsDialog
-import pub.devrel.easypermissions.EasyPermissions
 
-class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+class CameraActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCameraBinding
     private val viewModel: CameraViewModel by viewModels()
     private var photoUri: Uri? = null
 
-    private val startForCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+    private val permissionCamera = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+        if (result) {
+            openCamera()
+        } else {
+            val msg = R.string.rationale_open_camera
+            showToastError(msg)
+        }
+    }
+    private val resultCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
             viewModel.setPhotoUri(this, photoUri)
         }
@@ -48,11 +53,6 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
     private fun setupToolbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.button_camera)
@@ -63,8 +63,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
             if (hasPermission(this, PERM_CAMERA)) {
                 openCamera()
             } else {
-                val rationale = getString(R.string.rationale_open_camera)
-                EasyPermissions.requestPermissions(this, rationale, RC_CAMERA, PERM_CAMERA)
+                permissionCamera.launch(PERM_CAMERA)
             }
         }
     }
@@ -83,19 +82,7 @@ class CameraActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks 
 
     private fun openCamera() {
         photoUri = viewModel.uriCamera(this)
-        startForCamera.launch(photoUri)
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        openCamera()
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        } else {
-            showToastError(R.string.toast_permission_camera_denied)
-        }
+        resultCamera.launch(photoUri)
     }
 
 }
