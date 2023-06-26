@@ -10,11 +10,16 @@
     <string name="button_download">Download</string>
     <string name="button_download_file">Download File</string>
     <string name="button_record_audio">Record Audio</string>
+    <string name="button_stop_record">Stop</string>
+    <string name="button_start_record">Start</string>
+    <string name="button_pause_record">Pause</string>
+    <string name="button_resume_record">Resume</string>
 
     <string name="select_an_image">Select an image</string>
     <string name="take_a_picture">Take a Picture</string>
     <string name="file_name">File Name : %1$s</string>
     <string name="file_size">File Size : %1$s</string>
+    <string name="is_recording">Is Recording : %1$s</string>
 
     <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_media_images">This app needs access to your media images to choose an image.</string>
