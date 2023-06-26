@@ -11,7 +11,6 @@ execute android test `./gradlew connectedForTestDebugAndroidTest`
 
 #### List Library ####
 - [Compressor](https://github.com/zetbaitsu/Compressor)
-- [EasyPermissions](https://github.com/googlesamples/easypermissions)
 - [Glide](https://github.com/bumptech/glide)
 - [OkHttp](https://github.com/square/okhttp)
 - [Retrofit](https://github.com/square/retrofit)

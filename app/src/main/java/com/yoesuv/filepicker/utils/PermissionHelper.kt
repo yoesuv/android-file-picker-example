@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import pub.devrel.easypermissions.EasyPermissions
+import androidx.core.content.ContextCompat
 
 fun hasPermission(context: Context, permission: String): Boolean {
-    return EasyPermissions.hasPermissions(context, permission)
+    return ContextCompat.checkSelfPermission(context, permission) == android.content.pm.PackageManager.PERMISSION_GRANTED
 }
 
 fun openAppSettings(context: Context) {
