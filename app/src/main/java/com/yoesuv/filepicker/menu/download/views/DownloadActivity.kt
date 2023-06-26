@@ -3,24 +3,32 @@ package com.yoesuv.filepicker.menu.download.views
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.PERM_WRITE_EXTERNAL_STORAGE
-import com.yoesuv.filepicker.data.RC_WRITE_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityDownloadBinding
 import com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToastError
-import pub.devrel.easypermissions.EasyPermissions
 
-class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+class DownloadActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDownloadBinding
     private val viewModel: DownloadViewModel by viewModels()
+
+    private val permissionWrite = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+        if (result) {
+            viewModel.downloadFile(this)
+        } else {
+            val msg = R.string.rationale_write_storage
+            showToastError(msg)
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,11 +46,6 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
             this.onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     private fun setupToolbar() {
@@ -67,28 +70,7 @@ class DownloadActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks
         if (hasPermission(this, PERM_WRITE_EXTERNAL_STORAGE)) {
             viewModel.downloadFile(this)
         } else {
-            val rationale = getString(R.string.rationale_write_storage)
-            EasyPermissions.requestPermissions(this,
-                rationale,
-                RC_WRITE_EXTERNAL_STORAGE,
-                PERM_WRITE_EXTERNAL_STORAGE
-            )
-        }
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        if (requestCode == RC_WRITE_EXTERNAL_STORAGE) {
-            viewModel.downloadFile(this)
-        }
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-
-        } else {
-            if (requestCode == RC_WRITE_EXTERNAL_STORAGE) {
-                showToastError(R.string.toast_permission_write_storage_denied)
-            }
+            permissionWrite.launch(PERM_WRITE_EXTERNAL_STORAGE)
         }
     }
 
