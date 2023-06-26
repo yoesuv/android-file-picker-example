@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
+    namespace 'com.yoesuv.filepicker'
     compileSdkVersion 33
 
     defaultConfig {
@@ -30,6 +31,7 @@ android {
 
     buildFeatures {
         dataBinding true
+        buildConfig true
     }
     flavorDimensions "default"
     productFlavors {
@@ -43,6 +45,13 @@ android {
     }
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
