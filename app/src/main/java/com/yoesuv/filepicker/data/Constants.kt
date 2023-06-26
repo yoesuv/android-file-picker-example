@@ -12,9 +12,6 @@ const val PERM_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 const val PERM_READ_MEDIA_IMAGES = Manifest.permission.READ_MEDIA_IMAGES
 
-// req code permission
-const val RC_READ_EXTERNAL_STORAGE = 23
-
 const val BASE_URL = "https://raw.githubusercontent.com"
 const val DOWNLOAD_LINK = "yoesuv/GetX-Playground/master/Sample%20Document%20pdf.pdf"
 
