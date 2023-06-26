@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="record"
+            type="com.yoesuv.filepicker.menu.record.viewmodels.RecordAudioViewModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -9,10 +15,11 @@
         android:layout_margin="16dp">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvRecordingState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            tools:text="@string/button_record_audio"
+            tools:text="@string/is_recording"
             android:layout_gravity="center_horizontal"
             android:textSize="14sp" />
 

@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- SDK 33 photos -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:allowBackup="true"
