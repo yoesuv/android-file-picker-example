@@ -64,6 +64,9 @@
         <activity android:name=".menu.download.views.DownloadActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".menu.record.views.RecordAudioActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

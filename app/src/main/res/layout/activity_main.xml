@@ -66,6 +66,14 @@
                 android:textSize="@dimen/button_text_size"
                 android:onClick="@{main::clickDownload}"/>
 
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonTheme"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="wrap_content"
+                android:text="@string/button_record_audio"
+                android:textSize="@dimen/button_text_size"
+                android:onClick="@{main::clickAudio}"/>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
