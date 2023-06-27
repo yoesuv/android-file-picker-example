@@ -14,6 +14,7 @@ import java.io.IOException
 class RecordAudioViewModel : ViewModel() {
 
     var recordState = MutableLiveData<RecordingState>()
+    var recordDuration = MutableLiveData("00:00")
 
     private var recorder: MediaRecorder? = null
     private var fileName: String = ""
@@ -51,6 +52,7 @@ class RecordAudioViewModel : ViewModel() {
             release()
         }
         recorder = null
+        calculateDuration()
     }
 
     fun playRecord(activity: Activity) {
@@ -73,6 +75,21 @@ class RecordAudioViewModel : ViewModel() {
             release()
         }
         player = null
+    }
+
+    private fun calculateDuration() {
+        if (fileName.isNotEmpty()) {
+            player = MediaPlayer()
+            player?.setDataSource(fileName)
+            player?.prepare()
+            val duration = player?.duration ?: 0
+            val sec = duration / 1000 % 60
+            val min = duration / 1000 / 60
+            val strSec = "$sec".padStart(2, '0')
+            val strMin = "$min".padStart(2, '0')
+            logDebug("RecordAudioViewModel # record duration: $strMin:$strSec")
+            recordDuration.postValue("$strMin:$strSec")
+        }
     }
 
 }

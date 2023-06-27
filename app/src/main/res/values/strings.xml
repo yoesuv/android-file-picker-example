@@ -20,6 +20,7 @@
     <string name="file_name">File Name : %1$s</string>
     <string name="file_size">File Size : %1$s</string>
     <string name="is_recording">Is Recording : %1$s</string>
+    <string name="play_record">Play Record : %1$s</string>
 
     <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_media_images">This app needs access to your media images to choose an image.</string>

@@ -71,6 +71,10 @@ class RecordAudioActivity : AppCompatActivity() {
             val str = getString(R.string.is_recording, it.name)
             binding.tvRecordingState.text = str
         }
+        viewModel.recordDuration.observe(this) {
+            val str = getString(R.string.play_record, it)
+            binding.tvRecordDuration.text = str
+        }
     }
 
     private fun setupButton() {
