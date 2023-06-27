@@ -10,6 +10,7 @@ import com.yoesuv.filepicker.data.RecordingState
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToastError
 import java.io.IOException
+import kotlin.time.Duration.Companion.milliseconds
 
 class RecordAudioViewModel : ViewModel() {
 
@@ -83,12 +84,13 @@ class RecordAudioViewModel : ViewModel() {
             player?.setDataSource(fileName)
             player?.prepare()
             val duration = player?.duration ?: 0
-            val sec = duration / 1000 % 60
-            val min = duration / 1000 / 60
-            val strSec = "$sec".padStart(2, '0')
-            val strMin = "$min".padStart(2, '0')
-            logDebug("RecordAudioViewModel # record duration: $strMin:$strSec")
-            recordDuration.postValue("$strMin:$strSec")
+            val theDuration = duration.milliseconds
+            theDuration.toComponents { minute, second, _ ->
+                val strSec = "$second".padStart(2, '0')
+                val strMin = "$minute".padStart(2, '0')
+                logDebug("RecordAudioViewModel # record duration: $strMin:$strSec")
+                recordDuration.postValue("$strMin:$strSec")
+            }
         }
     }
 
