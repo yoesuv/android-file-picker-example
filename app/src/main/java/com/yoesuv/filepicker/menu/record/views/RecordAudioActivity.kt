@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.PERM_RECORD_AUDIO
+import com.yoesuv.filepicker.data.PERM_WRITE_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.databinding.ActivityRecordAudioBinding
 import com.yoesuv.filepicker.menu.record.viewmodels.RecordAudioViewModel
-import com.yoesuv.filepicker.utils.hasPermission
+import com.yoesuv.filepicker.utils.isPieOrLower
 import com.yoesuv.filepicker.utils.showToastError
 
 class RecordAudioActivity : AppCompatActivity() {
@@ -26,6 +27,15 @@ class RecordAudioActivity : AppCompatActivity() {
             showToastError(msg)
         }
     }
+    private val requestRecordAndWrite =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+            if (results.all { it.value }) {
+                viewModel.startRecording(this)
+            } else {
+                val msg = R.string.toast_permission_record_audio_and_write_denied
+                showToastError(msg)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +69,9 @@ class RecordAudioActivity : AppCompatActivity() {
 
     private fun setupButton() {
         binding.buttonStartRecord.setOnClickListener {
-            if (hasPermission(this, PERM_RECORD_AUDIO)) {
-                viewModel.startRecording(this)
+            if (isPieOrLower()) {
+                val permissions = arrayOf(PERM_RECORD_AUDIO, PERM_WRITE_EXTERNAL_STORAGE)
+                requestRecordAndWrite.launch(permissions)
             } else {
                 requestRecord.launch(PERM_RECORD_AUDIO)
             }
