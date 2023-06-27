@@ -55,6 +55,11 @@ class RecordAudioActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.stopRecording(this)
+    }
+
     private fun setupToolbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.button_record_audio)
