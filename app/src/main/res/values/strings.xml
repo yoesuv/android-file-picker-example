@@ -32,6 +32,7 @@
     <string name="toast_permission_camera_denied">Permission Camera Denied</string>
     <string name="toast_permission_access_coarse_location_denied">Permission Precise Location Denied</string>
     <string name="toast_permission_images_denied">Permission Media Images Denied</string>
+    <string name="toast_permission_record_audio_denied">Permission Record Audio Denied</string>
     <string name="toast_download_success">Download Success</string>
     <string name="toast_download_failed">Download Failed</string>
     <string name="toast_success_get_location">Success Get Location</string>
