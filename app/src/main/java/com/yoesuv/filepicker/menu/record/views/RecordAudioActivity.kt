@@ -57,7 +57,8 @@ class RecordAudioActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        viewModel.stopRecording(this)
+        viewModel.stopRecording()
+        viewModel.stopPlayRecord()
     }
 
     private fun setupToolbar() {
@@ -82,7 +83,10 @@ class RecordAudioActivity : AppCompatActivity() {
             }
         }
         binding.buttonStopRecord.setOnClickListener {
-            viewModel.stopRecording(this)
+            viewModel.stopRecording()
+        }
+        binding.imgBtnPlayRecord.setOnClickListener {
+            viewModel.playRecord(this)
         }
     }
 

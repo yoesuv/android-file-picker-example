@@ -1,20 +1,23 @@
 package com.yoesuv.filepicker.menu.record.viewmodels
 
 import android.app.Activity
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RecordingState
 import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.logError
+import com.yoesuv.filepicker.utils.showToastError
 import java.io.IOException
 
-class RecordAudioViewModel: ViewModel() {
+class RecordAudioViewModel : ViewModel() {
 
     var recordState = MutableLiveData<RecordingState>()
 
     private var recorder: MediaRecorder? = null
     private var fileName: String = ""
+    private var player: MediaPlayer? = null
 
     init {
         recordState.value = RecordingState.START
@@ -30,25 +33,46 @@ class RecordAudioViewModel: ViewModel() {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
             setOutputFile(fileName)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
             try {
                 prepare()
             } catch (e: IOException) {
                 e.printStackTrace()
-                logError("RecordAudioViewModel # prepare() failed")
+                activity.showToastError(R.string.toast_record_failed)
             }
             start()
         }
     }
 
-    fun stopRecording(activity: Activity) {
-        logDebug("RecordAudioViewModel # STOP RECORDING")
+    fun stopRecording() {
         recordState.postValue(RecordingState.STOP)
         recorder?.apply {
             stop()
             release()
         }
         recorder = null
+    }
+
+    fun playRecord(activity: Activity) {
+        recordState.postValue(RecordingState.STOP)
+        player = MediaPlayer().apply {
+            try {
+                setDataSource(fileName)
+                prepare()
+                start()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                activity.showToastError(R.string.toast_play_record_failed)
+            }
+        }
+    }
+
+    fun stopPlayRecord() {
+        player?.apply {
+            stop()
+            release()
+        }
+        player = null
     }
 
 }
