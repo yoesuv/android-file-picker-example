@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.PERM_RECORD_AUDIO
 import com.yoesuv.filepicker.data.PERM_WRITE_EXTERNAL_STORAGE
+import com.yoesuv.filepicker.data.RecordingState
 import com.yoesuv.filepicker.databinding.ActivityRecordAudioBinding
 import com.yoesuv.filepicker.menu.record.viewmodels.RecordAudioViewModel
 import com.yoesuv.filepicker.utils.isPieOrLower
@@ -70,6 +71,20 @@ class RecordAudioActivity : AppCompatActivity() {
         viewModel.recordState.observe(this) {
             val str = getString(R.string.is_recording, it.name)
             binding.tvRecordingState.text = str
+            when (it) {
+                RecordingState.RECORDING -> {
+                    binding.buttonStartRecord.setText(R.string.button_pause_record)
+                }
+                RecordingState.PAUSE -> {
+                    binding.buttonStartRecord.setText(R.string.button_resume_record)
+                }
+                RecordingState.RESUME -> {
+                    binding.buttonStartRecord.setText(R.string.button_pause_record)
+                }
+                else -> {
+                    binding.buttonStartRecord.setText(R.string.button_start_record)
+                }
+            }
         }
         viewModel.recordDuration.observe(this) {
             val str = getString(R.string.play_record, it)

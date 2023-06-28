@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.yoesuv.filepicker"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 33
         versionCode 5
         versionName "2.3.1"

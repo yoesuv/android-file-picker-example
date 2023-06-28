@@ -32,39 +32,47 @@ class RecordAudioViewModel : ViewModel() {
     }
 
     fun startRecording(activity: Activity) {
-        logDebug("RecordAudioViewModel # START RECORDING")
-        secondRunning = 0
-        timer = Timer()
-        timer?.scheduleAtFixedRate(timerTask {
-            secondRunning++
-            val sec = secondRunning % 60
-            val min = secondRunning / 60
-            val strSec = "$sec".padStart(2, '0')
-            val strMin = "$min".padStart(2, '0')
-            recordRunning.postValue("$strMin:$strSec")
-        }, 1000L, 1000L)
-        val cachePath = "${activity.externalCacheDir?.absolutePath}"
-        fileName = "$cachePath/record_audio.aac"
-        logDebug("RecordAudioViewModel # fileName: $fileName")
-        recordState.postValue(RecordingState.RECORDING)
-        recorder = MediaRecorder().apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
-            setOutputFile(fileName)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            try {
-                prepare()
-            } catch (e: IOException) {
-                timer?.cancel()
-                e.printStackTrace()
-                activity.showToastError(R.string.toast_record_failed)
+        val state = recordState.value
+        if (state == RecordingState.RECORDING) {
+            recordState.postValue(RecordingState.PAUSE)
+            recorder?.pause()
+            timer?.cancel()
+        } else if (state == RecordingState.PAUSE) {
+            recordState.postValue(RecordingState.RESUME)
+            recorder?.resume()
+            runTimer()
+        } else if (state == RecordingState.RESUME) {
+            recordState.postValue(RecordingState.PAUSE)
+            recorder?.pause()
+            timer?.cancel()
+        } else {
+            logDebug("RecordAudioViewModel # START RECORDING")
+            secondRunning = 0
+            runTimer()
+            val cachePath = "${activity.externalCacheDir?.absolutePath}"
+            fileName = "$cachePath/record_audio.aac"
+            logDebug("RecordAudioViewModel # fileName: $fileName")
+            recordState.postValue(RecordingState.RECORDING)
+            recorder = MediaRecorder().apply {
+                setAudioSource(MediaRecorder.AudioSource.MIC)
+                setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
+                setOutputFile(fileName)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+                try {
+                    prepare()
+                } catch (e: IOException) {
+                    timer?.cancel()
+                    e.printStackTrace()
+                    activity.showToastError(R.string.toast_record_failed)
+                }
+                start()
             }
-            start()
         }
     }
 
     fun stopRecording() {
         recordState.postValue(RecordingState.STOP)
+        recordRunning.postValue("00:00")
         timer?.cancel()
         recorder?.apply {
             stop()
@@ -117,6 +125,18 @@ class RecordAudioViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    private fun runTimer() {
+        timer = Timer()
+        timer?.scheduleAtFixedRate(timerTask {
+            secondRunning++
+            val sec = secondRunning % 60
+            val min = secondRunning / 60
+            val strSec = "$sec".padStart(2, '0')
+            val strMin = "$min".padStart(2, '0')
+            recordRunning.postValue("$strMin:$strSec")
+        }, 1000L, 1000L)
     }
 
 }
