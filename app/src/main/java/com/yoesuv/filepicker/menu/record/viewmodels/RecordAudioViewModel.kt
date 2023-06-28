@@ -10,16 +10,22 @@ import com.yoesuv.filepicker.data.RecordingState
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToastError
 import java.io.IOException
+import java.util.Timer
+import kotlin.concurrent.timerTask
 import kotlin.time.Duration.Companion.milliseconds
 
 class RecordAudioViewModel : ViewModel() {
 
     var recordState = MutableLiveData<RecordingState>()
-    var recordDuration = MutableLiveData("00:00")
+    var recordDuration = MutableLiveData("00:00:000")
+    var recordRunning = MutableLiveData("00:00")
 
     private var recorder: MediaRecorder? = null
     private var fileName: String = ""
     private var player: MediaPlayer? = null
+
+    private var timer: Timer? = null
+    private var secondRunning = 0
 
     init {
         recordState.value = RecordingState.START
@@ -27,6 +33,16 @@ class RecordAudioViewModel : ViewModel() {
 
     fun startRecording(activity: Activity) {
         logDebug("RecordAudioViewModel # START RECORDING")
+        secondRunning = 0
+        timer = Timer()
+        timer?.scheduleAtFixedRate(timerTask {
+            secondRunning++
+            val sec = secondRunning % 60
+            val min = secondRunning / 60
+            val strSec = "$sec".padStart(2, '0')
+            val strMin = "$min".padStart(2, '0')
+            recordRunning.postValue("$strMin:$strSec")
+        }, 1000L, 1000L)
         val cachePath = "${activity.externalCacheDir?.absolutePath}"
         fileName = "$cachePath/record_audio.aac"
         logDebug("RecordAudioViewModel # fileName: $fileName")
@@ -39,6 +55,7 @@ class RecordAudioViewModel : ViewModel() {
             try {
                 prepare()
             } catch (e: IOException) {
+                timer?.cancel()
                 e.printStackTrace()
                 activity.showToastError(R.string.toast_record_failed)
             }
@@ -48,6 +65,7 @@ class RecordAudioViewModel : ViewModel() {
 
     fun stopRecording() {
         recordState.postValue(RecordingState.STOP)
+        timer?.cancel()
         recorder?.apply {
             stop()
             release()
@@ -58,14 +76,17 @@ class RecordAudioViewModel : ViewModel() {
 
     fun playRecord(activity: Activity) {
         recordState.postValue(RecordingState.STOP)
-        player = MediaPlayer().apply {
-            try {
-                setDataSource(fileName)
-                prepare()
-                start()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                activity.showToastError(R.string.toast_play_record_failed)
+        timer?.cancel()
+        if (fileName.isNotEmpty()) {
+            player = MediaPlayer().apply {
+                try {
+                    setDataSource(fileName)
+                    prepare()
+                    start()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    activity.showToastError(R.string.toast_play_record_failed)
+                }
             }
         }
     }
@@ -85,11 +106,15 @@ class RecordAudioViewModel : ViewModel() {
             player?.prepare()
             val duration = player?.duration ?: 0
             val theDuration = duration.milliseconds
-            theDuration.toComponents { minute, second, _ ->
+            theDuration.toComponents { minute, second, nanosec ->
                 val strSec = "$second".padStart(2, '0')
                 val strMin = "$minute".padStart(2, '0')
-                logDebug("RecordAudioViewModel # record duration: $strMin:$strSec")
-                recordDuration.postValue("$strMin:$strSec")
+                if (nanosec.toString().length > 3) {
+                    val strNanosec = nanosec.toString().substring(0, 3)
+                    recordDuration.postValue("$strMin:$strSec:$strNanosec")
+                } else {
+                    recordDuration.postValue("$strMin:$strSec:$nanosec")
+                }
             }
         }
     }
