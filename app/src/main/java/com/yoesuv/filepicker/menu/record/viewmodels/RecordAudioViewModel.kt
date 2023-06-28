@@ -19,6 +19,7 @@ class RecordAudioViewModel : ViewModel() {
     var recordState = MutableLiveData<RecordingState>()
     var recordDuration = MutableLiveData("00:00:000")
     var recordRunning = MutableLiveData("00:00")
+    var showPlayer = MutableLiveData(false)
 
     private var recorder: MediaRecorder? = null
     private var fileName: String = ""
@@ -32,6 +33,7 @@ class RecordAudioViewModel : ViewModel() {
     }
 
     fun startRecording(activity: Activity) {
+        showPlayer.postValue(false)
         val state = recordState.value
         if (state == RecordingState.RECORDING) {
             recordState.postValue(RecordingState.PAUSE)
@@ -80,6 +82,7 @@ class RecordAudioViewModel : ViewModel() {
         }
         recorder = null
         calculateDuration()
+        showPlayer.postValue(true)
     }
 
     fun playRecord(activity: Activity) {
