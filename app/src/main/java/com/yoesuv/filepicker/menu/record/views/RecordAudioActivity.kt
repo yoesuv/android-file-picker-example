@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
@@ -92,6 +93,11 @@ class RecordAudioActivity : AppCompatActivity() {
         }
         viewModel.recordRunning.observe(this) {
             binding.tvRecordRunningTime.text = it
+        }
+        viewModel.isPlaying.observe(this) {
+            @DrawableRes val stop = R.drawable.ic_stop
+            @DrawableRes val play = R.drawable.ic_play
+            binding.imgBtnPlayRecord.setImageResource(if (it) stop else play)
         }
     }
 

@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RecordingState
-import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showToastError
 import java.io.IOException
 import java.util.Timer
@@ -20,6 +19,7 @@ class RecordAudioViewModel : ViewModel() {
     var recordDuration = MutableLiveData("00:00:000")
     var recordRunning = MutableLiveData("00:00")
     var showPlayer = MutableLiveData(false)
+    var isPlaying = MutableLiveData(false)
 
     private var recorder: MediaRecorder? = null
     private var fileName: String = ""
@@ -48,12 +48,10 @@ class RecordAudioViewModel : ViewModel() {
             recorder?.pause()
             timer?.cancel()
         } else {
-            logDebug("RecordAudioViewModel # START RECORDING")
             secondRunning = 0
             runTimer()
             val cachePath = "${activity.externalCacheDir?.absolutePath}"
             fileName = "$cachePath/record_audio.aac"
-            logDebug("RecordAudioViewModel # fileName: $fileName")
             recordState.postValue(RecordingState.RECORDING)
             recorder = MediaRecorder().apply {
                 setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -86,18 +84,28 @@ class RecordAudioViewModel : ViewModel() {
     }
 
     fun playRecord(activity: Activity) {
-        recordState.postValue(RecordingState.STOP)
-        timer?.cancel()
-        if (fileName.isNotEmpty()) {
-            player = MediaPlayer().apply {
+        if (isPlaying.value == true) {
+            recordState.postValue(RecordingState.STOP)
+            isPlaying.postValue(false)
+            player?.stop()
+        } else {
+            recordState.postValue(RecordingState.STOP)
+            timer?.cancel()
+            if (fileName.isNotEmpty()) {
                 try {
-                    setDataSource(fileName)
-                    prepare()
-                    start()
+                    player = MediaPlayer()
+                    player?.setDataSource(fileName)
+                    player?.prepare()
+                    player?.start()
+                    isPlaying.postValue(true)
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    isPlaying.postValue(false)
                     activity.showToastError(R.string.toast_play_record_failed)
                 }
+            }
+            player?.setOnCompletionListener {
+                isPlaying.postValue(false)
             }
         }
     }
