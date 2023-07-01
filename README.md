@@ -1,13 +1,14 @@
 ## Android Picker/Chooser & Permission ##
 
-Pick image,file,photo & location in android, also permission.  
+Pick image,file,photo, location & recording in android, also permission.  
 download apk [here](https://www.dropbox.com/s/s20nidpn67kewwm)  
 execute android test `./gradlew connectedForTestDebugAndroidTest`
 
 #### Screenshot ####
-| ![](https://images2.imgbox.com/82/df/gO2CrsYj_o.png) | ![](https://images2.imgbox.com/ff/0d/4sbHWzB7_o.png) | ![](https://i.imgur.com/boelaOE.png) | ![](https://i.imgur.com/XVpXWgg.png) |
+| ![](https://images2.imgbox.com/a7/b9/fO4qT25R_o.png) | ![](https://images2.imgbox.com/ff/0d/4sbHWzB7_o.png) | ![](https://i.imgur.com/boelaOE.png) | ![](https://i.imgur.com/XVpXWgg.png) |
 | :---: | :---: |:---:| :---: |
 | ![](https://i.imgur.com/DrXTEEF.png) | ![](https://images2.imgbox.com/a6/e1/qj5HKxXl_o.png) | ![](https://i.imgur.com/sqMzGZC.png) | ![](https://images2.imgbox.com/14/cd/f9Ou8aWF_o.png) |
+| ![](https://i.imgur.com/79OW4Ot.png) | ![](https://i.imgur.com/avNbA9O.png) | - | - |
 
 #### List Library ####
 - [Compressor](https://github.com/zetbaitsu/Compressor)
