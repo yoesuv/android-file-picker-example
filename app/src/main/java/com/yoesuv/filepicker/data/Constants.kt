@@ -15,6 +15,7 @@ const val PERM_RECORD_AUDIO = Manifest.permission.RECORD_AUDIO
 
 const val BASE_URL = "https://raw.githubusercontent.com"
 const val DOWNLOAD_LINK = "yoesuv/GetX-Playground/master/Sample%20Document%20pdf.pdf"
+const val DOWNLOAD_LINK_FULL = "https://raw.githubusercontent.com/yoesuv/GetX-Playground/master/Sample%20Document%20pdf.pdf"
 
 const val COMPRESSOR_QUALITY = 90
 const val COMPRESSOR_WIDTH = 1224
