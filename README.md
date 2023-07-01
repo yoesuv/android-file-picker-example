@@ -1,7 +1,7 @@
 ## Android Picker/Chooser & Permission ##
 
 Pick image,file,photo, location & recording in android, also permission.  
-download apk [here](https://www.dropbox.com/s/s20nidpn67kewwm)  
+download apk [here](https://www.dropbox.com/s/hckf8s6s2zwrgh9)  
 execute android test `./gradlew connectedForTestDebugAndroidTest`
 
 #### Screenshot ####
