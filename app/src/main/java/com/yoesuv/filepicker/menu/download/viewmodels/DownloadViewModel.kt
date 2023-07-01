@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.DOWNLOAD_LINK
+import com.yoesuv.filepicker.data.DOWNLOAD_LINK_FULL
 import com.yoesuv.filepicker.networks.DownloadRepository
 import com.yoesuv.filepicker.utils.logError
 import com.yoesuv.filepicker.utils.showToastError
@@ -25,7 +26,7 @@ class DownloadViewModel: ViewModel() {
 
     // https://stackoverflow.com/a/68627407/3559183
     fun downloadFile(context: Context) {
-        val fileName = URLUtil.guessFileName(DOWNLOAD_LINK, null, null)
+        val fileName = URLUtil.guessFileName(DOWNLOAD_LINK_FULL, null, null)
         try {
             val folder = File(Environment.getExternalStorageDirectory(), "Download")
             if (!folder.exists()) {
@@ -35,7 +36,7 @@ class DownloadViewModel: ViewModel() {
             val fileResult = File(pathFile)
 
             val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-            val request = DownloadManager.Request(Uri.parse(DOWNLOAD_LINK))
+            val request = DownloadManager.Request(Uri.parse(DOWNLOAD_LINK_FULL))
             request.setAllowedOverMetered(true)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
@@ -44,6 +45,7 @@ class DownloadViewModel: ViewModel() {
             request.setDestinationUri(Uri.fromFile(fileResult))
             downloadManager.enqueue(request)
         } catch (e: Exception) {
+            context.showToastError(R.string.toast_download_failed)
             logError(e.message)
             e.printStackTrace()
         }

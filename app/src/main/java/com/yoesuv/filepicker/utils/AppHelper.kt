@@ -27,6 +27,10 @@ fun isTiramisu(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 }
 
+fun isPieOrLower(): Boolean {
+    return Build.VERSION.SDK_INT <= Build.VERSION_CODES.P
+}
+
 fun forTest(): Boolean {
     return BuildConfig.FLAVOR.equals("forTest", true)
 }

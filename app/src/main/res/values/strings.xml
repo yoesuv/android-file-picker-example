@@ -9,11 +9,18 @@
     <string name="button_user_location">User Location</string>
     <string name="button_download">Download</string>
     <string name="button_download_file">Download File</string>
+    <string name="button_record_audio">Record Audio</string>
+    <string name="button_stop_record">Stop</string>
+    <string name="button_start_record">Start</string>
+    <string name="button_pause_record">Pause</string>
+    <string name="button_resume_record">Resume</string>
 
     <string name="select_an_image">Select an image</string>
     <string name="take_a_picture">Take a Picture</string>
     <string name="file_name">File Name : %1$s</string>
     <string name="file_size">File Size : %1$s</string>
+    <string name="is_recording">Is Recording : %1$s</string>
+    <string name="play_record">Play Record : %1$s</string>
 
     <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_media_images">This app needs access to your media images to choose an image.</string>
@@ -26,9 +33,13 @@
     <string name="toast_permission_camera_denied">Permission Camera Denied</string>
     <string name="toast_permission_access_coarse_location_denied">Permission Precise Location Denied</string>
     <string name="toast_permission_images_denied">Permission Media Images Denied</string>
+    <string name="toast_permission_record_audio_denied">Permission Record Audio Denied</string>
+    <string name="toast_permission_record_audio_and_write_denied">Permission Record Audio or Write Storage Denied</string>
     <string name="toast_download_success">Download Success</string>
     <string name="toast_download_failed">Download Failed</string>
     <string name="toast_success_get_location">Success Get Location</string>
     <string name="toast_failed_get_location">Failed Get Location</string>
     <string name="toast_failed_get_image_camera">Failed Get Image from Camera</string>
+    <string name="toast_record_failed">Failed Record Audio</string>
+    <string name="toast_play_record_failed">Failed Play Audio Record</string>
 </resources>
