@@ -4,14 +4,14 @@ apply plugin: 'kotlin-kapt'
 
 android {
     namespace 'com.yoesuv.filepicker'
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.yoesuv.filepicker"
         minSdkVersion 24
-        targetSdkVersion 33
-        versionCode 5
-        versionName "2.4.0"
+        targetSdkVersion 34
+        versionCode 6
+        versionName "2.4.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
