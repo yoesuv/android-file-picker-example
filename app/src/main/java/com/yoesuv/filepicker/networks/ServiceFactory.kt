@@ -26,7 +26,7 @@ object ServiceFactory {
             .build()
     }
 
-    fun <T> getApiService(baseUrl: String, service:Class<T>):T {
+    fun <T> getApiService(baseUrl: String, service: Class<T>): T {
         return retrofitInstance(baseUrl).create(service)
     }
 
