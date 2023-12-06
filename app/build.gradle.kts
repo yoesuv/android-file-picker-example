@@ -77,7 +77,7 @@ dependencies {
     androidTestUtil("androidx.test:orchestrator:1.4.2")
 
     implementation("androidx.activity:activity-ktx:1.8.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
