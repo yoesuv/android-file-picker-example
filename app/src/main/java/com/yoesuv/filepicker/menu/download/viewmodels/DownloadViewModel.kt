@@ -1,5 +1,6 @@
 package com.yoesuv.filepicker.menu.download.viewmodels
 
+import android.app.Activity
 import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
@@ -25,7 +26,7 @@ class DownloadViewModel: ViewModel() {
     private val repoDownload = DownloadRepository(viewModelScope)
 
     // https://stackoverflow.com/a/68627407/3559183
-    fun downloadFile(context: Context) {
+    fun downloadFile(activity: Activity) {
         val fileName = URLUtil.guessFileName(DOWNLOAD_LINK_FULL, null, null)
         try {
             val folder = File(Environment.getExternalStorageDirectory(), "Download")
@@ -35,7 +36,7 @@ class DownloadViewModel: ViewModel() {
             val pathFile = folder.absolutePath + File.separator + fileName
             val fileResult = File(pathFile)
 
-            val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val downloadManager = activity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             val request = DownloadManager.Request(Uri.parse(DOWNLOAD_LINK_FULL))
             request.setAllowedOverMetered(true)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
@@ -45,7 +46,7 @@ class DownloadViewModel: ViewModel() {
             request.setDestinationUri(Uri.fromFile(fileResult))
             downloadManager.enqueue(request)
         } catch (e: Exception) {
-            context.showToastError(R.string.toast_download_failed)
+            activity.showToastError(R.string.toast_download_failed)
             logError(e.message)
             e.printStackTrace()
         }
@@ -56,29 +57,29 @@ class DownloadViewModel: ViewModel() {
      https://stackoverflow.com/a/61093017/3559183
     */
     @RequiresApi(Build.VERSION_CODES.Q)
-    fun downloadFileSdk29(context: Context) {
+    fun downloadFileSdk29(activity: Activity) {
         val fileName = URLUtil.guessFileName(DOWNLOAD_LINK, null, null)
         repoDownload.downloadFile(DOWNLOAD_LINK, { body ->
             if (body != null) {
                 val fileCollection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
                 val contentValues = ContentValues()
                 contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-                val uri = context.contentResolver.insert(fileCollection, contentValues)
+                val uri = activity.contentResolver.insert(fileCollection, contentValues)
                 if (uri != null) {
-                    val outputStream = context.contentResolver.openOutputStream(uri, "rwt")
+                    val outputStream = activity.contentResolver.openOutputStream(uri, "rwt")
                     outputStream?.write(body.bytes())
                     outputStream?.close()
-                    context.showToastSuccess(R.string.toast_download_success)
+                    activity.showToastSuccess(R.string.toast_download_success)
                 } else {
-                    context.showToastError(R.string.toast_download_failed)
+                    activity.showToastError(R.string.toast_download_failed)
                 }
             } else {
-                context.showToastError(R.string.toast_download_failed)
+                activity.showToastError(R.string.toast_download_failed)
             }
         }, { error ->
             logError(error.message)
             error.printStackTrace()
-            context.showToastError(R.string.toast_download_failed)
+            activity.showToastError(R.string.toast_download_failed)
         })
     }
 

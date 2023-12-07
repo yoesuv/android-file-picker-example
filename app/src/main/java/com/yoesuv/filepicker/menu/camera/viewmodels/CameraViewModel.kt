@@ -1,5 +1,6 @@
 package com.yoesuv.filepicker.menu.camera.viewmodels
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
@@ -34,7 +35,7 @@ class CameraViewModel: ViewModel() {
         }
     }
 
-    fun setPhotoUri(context: Context, uri: Uri?) {
+    fun setPhotoUri(context: Activity, uri: Uri?) {
         viewModelScope.launch {
             if (photoFile != null) {
                 val fileCompressed = Compressor.compress(context, photoFile!!) {
