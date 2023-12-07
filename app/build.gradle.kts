@@ -19,7 +19,7 @@ android {
         testInstrumentationRunnerArguments += mapOf(
             "clearPackageData" to "true",
         )
-        setProperty("archivesBaseName", applicationId+"-v"+versionCode+"("+versionName+")")
+        setProperty("archivesBaseName", "$applicationId-v$versionCode($versionName)")
     }
 
     buildTypes {
