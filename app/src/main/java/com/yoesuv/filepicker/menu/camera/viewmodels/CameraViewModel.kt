@@ -13,7 +13,7 @@ import com.yoesuv.filepicker.data.COMPRESSOR_HEIGHT
 import com.yoesuv.filepicker.data.COMPRESSOR_QUALITY
 import com.yoesuv.filepicker.data.COMPRESSOR_WIDTH
 import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.default
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ class CameraViewModel: ViewModel() {
                     context.contentResolver.delete(it, null, null)
                 }
             } else {
-                context.showToastError(R.string.toast_failed_get_image_camera)
+                context.showSnackbarError(R.string.toast_failed_get_image_camera)
             }
         }
     }

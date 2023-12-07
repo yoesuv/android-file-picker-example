@@ -17,8 +17,8 @@ import com.yoesuv.filepicker.data.DOWNLOAD_LINK
 import com.yoesuv.filepicker.data.DOWNLOAD_LINK_FULL
 import com.yoesuv.filepicker.networks.DownloadRepository
 import com.yoesuv.filepicker.utils.logError
-import com.yoesuv.filepicker.utils.showToastError
-import com.yoesuv.filepicker.utils.showToastSuccess
+import com.yoesuv.filepicker.utils.showSnackbarError
+import com.yoesuv.filepicker.utils.showSnackbarSucces
 import java.io.File
 
 class DownloadViewModel: ViewModel() {
@@ -46,7 +46,7 @@ class DownloadViewModel: ViewModel() {
             request.setDestinationUri(Uri.fromFile(fileResult))
             downloadManager.enqueue(request)
         } catch (e: Exception) {
-            activity.showToastError(R.string.toast_download_failed)
+            activity.showSnackbarError(R.string.toast_download_failed)
             logError(e.message)
             e.printStackTrace()
         }
@@ -69,17 +69,17 @@ class DownloadViewModel: ViewModel() {
                     val outputStream = activity.contentResolver.openOutputStream(uri, "rwt")
                     outputStream?.write(body.bytes())
                     outputStream?.close()
-                    activity.showToastSuccess(R.string.toast_download_success)
+                    activity.showSnackbarSucces(R.string.toast_download_success)
                 } else {
-                    activity.showToastError(R.string.toast_download_failed)
+                    activity.showSnackbarError(R.string.toast_download_failed)
                 }
             } else {
-                activity.showToastError(R.string.toast_download_failed)
+                activity.showSnackbarError(R.string.toast_download_failed)
             }
         }, { error ->
             logError(error.message)
             error.printStackTrace()
-            activity.showToastError(R.string.toast_download_failed)
+            activity.showSnackbarError(R.string.toast_download_failed)
         })
     }
 

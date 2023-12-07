@@ -14,7 +14,7 @@ import com.yoesuv.filepicker.databinding.ActivityDownloadBinding
 import com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 
 class DownloadActivity : AppCompatActivity() {
 
@@ -26,7 +26,7 @@ class DownloadActivity : AppCompatActivity() {
             viewModel.downloadFile(this)
         } else {
             val msg = R.string.rationale_write_storage
-            showToastError(msg)
+            showSnackbarError(msg)
         }
     }
 

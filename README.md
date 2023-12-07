@@ -15,7 +15,6 @@ execute android test `./gradlew connectedForTestDebugAndroidTest`
 - [Glide](https://github.com/bumptech/glide)
 - [OkHttp](https://github.com/square/okhttp)
 - [Retrofit](https://github.com/square/retrofit)
-- [Toasty](https://github.com/GrenderG/Toasty)
 
 #### References ####
 - [Stackoverflow](https://stackoverflow.com/a/65763144/3559183)

@@ -34,14 +34,14 @@ class LocationViewModel: ViewModel() {
                     val latLng = "${location.latitude}, ${location.longitude}"
                     logDebug("LocationViewModel # location $latLng")
                     userLocation.postValue(latLng)
-                    activity.showToastSuccess(R.string.toast_success_get_location)
+                    activity.showSnackbarSucces(R.string.toast_success_get_location)
                 } else {
                     userLocation.postValue("")
-                    activity.showToastError(R.string.toast_failed_get_location)
+                    activity.showSnackbarError(R.string.toast_failed_get_location)
                 }
             } else {
                 logError("LocationViewModel # failed get location")
-                activity.showToastError(R.string.toast_failed_get_location)
+                activity.showSnackbarError(R.string.toast_failed_get_location)
             }
         }
     }

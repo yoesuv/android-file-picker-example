@@ -16,7 +16,7 @@ import com.yoesuv.filepicker.menu.gallery.viewmodels.GalleryViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.isTiramisu
 import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 
 class GalleryActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class GalleryActivity : AppCompatActivity() {
             } else {
                 val msg1 = R.string.rationale_media_images
                 val msg2 = R.string.rationale_read_storage_gallery
-                showToastError(if (isTiramisu()) msg1 else msg2)
+                showSnackbarError(if (isTiramisu()) msg1 else msg2)
             }
         }
     private val resultGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

@@ -11,7 +11,7 @@ import com.yoesuv.filepicker.data.PERM_FINE_LOCATION
 import com.yoesuv.filepicker.databinding.ActivityLocationBinding
 import com.yoesuv.filepicker.menu.location.viewmodels.LocationViewModel
 import com.yoesuv.filepicker.utils.hasPermission
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 
 class LocationActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class LocationActivity : AppCompatActivity() {
             viewModel.getUserLocation(this)
         } else {
             val msg = R.string.rationale_fine_location
-            showToastError(msg)
+            showSnackbarError(msg)
         }
     }
 
