@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -86,5 +87,5 @@ dependencies {
     implementation("id.zelory:compressor:3.0.1")
 
     implementation("com.github.bumptech.glide:glide:4.15.1")
-    kapt("com.github.bumptech.glide:compiler:4.15.1")
+    ksp("com.github.bumptech.glide:ksp:4.15.1")
 }
