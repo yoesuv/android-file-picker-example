@@ -1,4 +1,8 @@
 pluginManagement {
+    val kotlinVersion: String by settings
+    plugins {
+        id("org.jetbrains.kotlin.android") version kotlinVersion apply false
+    }
     repositories {
         google()
         mavenCentral()
