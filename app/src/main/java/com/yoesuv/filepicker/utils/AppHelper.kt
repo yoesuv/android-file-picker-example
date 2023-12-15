@@ -43,6 +43,10 @@ fun isTiramisu(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 }
 
+fun isUpsideDown(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+}
+
 fun isPieOrLower(): Boolean {
     return Build.VERSION.SDK_INT <= Build.VERSION_CODES.P
 }
