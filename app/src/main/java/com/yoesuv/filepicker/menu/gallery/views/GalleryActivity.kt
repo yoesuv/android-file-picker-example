@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.PERM_MEDIA_VISUAL_USER_SELECTED
 import com.yoesuv.filepicker.data.PERM_READ_EXTERNAL_STORAGE
 import com.yoesuv.filepicker.data.PERM_READ_MEDIA_IMAGES
 import com.yoesuv.filepicker.databinding.ActivityGalleryBinding
 import com.yoesuv.filepicker.menu.gallery.viewmodels.GalleryViewModel
 import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.isTiramisu
+import com.yoesuv.filepicker.utils.isUpsideDown
 import com.yoesuv.filepicker.utils.logDebug
 import com.yoesuv.filepicker.utils.showSnackbarError
 
@@ -41,6 +43,26 @@ class GalleryActivity : AppCompatActivity() {
         }
     }
 
+    private val permissionGallery34 =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+            var isGranted = true
+            for (value in results.values) {
+                if (!value) {
+                    isGranted = false
+                    break
+                }
+            }
+            for (result in results.entries) {
+                logDebug("GalleryActivity #  ${result.key} = ${result.value}")
+            }
+            if (isGranted) {
+                openGallery()
+            } else {
+                val msg1 = R.string.rationale_media_images
+                showSnackbarError(msg1)
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_gallery)
@@ -65,12 +87,20 @@ class GalleryActivity : AppCompatActivity() {
     }
 
     private fun setupButton() {
-        val thePermission = if (isTiramisu()) PERM_READ_MEDIA_IMAGES else PERM_READ_EXTERNAL_STORAGE
         binding.buttonOpenGallery.setOnClickListener {
-            if (hasPermission(this, thePermission)) {
-                openGallery()
+            if (isUpsideDown()) {
+                if (hasPermission(this, PERM_READ_MEDIA_IMAGES)) {
+                    openGallery()
+                } else {
+                    permissionGallery34.launch(arrayOf(PERM_READ_MEDIA_IMAGES, PERM_MEDIA_VISUAL_USER_SELECTED))
+                }
             } else {
-                permissionGallery.launch(thePermission)
+                val thePermission = if (isTiramisu()) PERM_READ_MEDIA_IMAGES else PERM_READ_EXTERNAL_STORAGE
+                if (hasPermission(this, thePermission)) {
+                    openGallery()
+                } else {
+                    permissionGallery.launch(thePermission)
+                }
             }
         }
     }
