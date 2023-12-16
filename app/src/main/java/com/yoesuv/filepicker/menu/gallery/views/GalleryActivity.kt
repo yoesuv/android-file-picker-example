@@ -45,20 +45,25 @@ class GalleryActivity : AppCompatActivity() {
 
     private val permissionGallery34 =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
-            var isGranted = true
-            for (value in results.values) {
-                if (!value) {
-                    isGranted = false
-                    break
+            if (results.isNotEmpty()) {
+                var isGranted = true
+                for (value in results.values) {
+                    if (!value) {
+                        isGranted = false
+                        break
+                    }
                 }
-            }
-            for (result in results.entries) {
-                logDebug("GalleryActivity #  ${result.key} = ${result.value}")
-            }
-            if (isGranted) {
-                openGallery()
+                for (result in results.entries) {
+                    logDebug("GalleryActivity #  ${result.key} = ${result.value}")
+                }
+                if (isGranted) {
+                    openGallery()
+                } else {
+                    val msg1 = R.string.rationale_media_images
+                    showSnackbarError(msg1)
+                }
             } else {
-                val msg1 = R.string.rationale_media_images
+                val msg1 = R.string.toast_request_permission_failed
                 showSnackbarError(msg1)
             }
         }
