@@ -42,9 +42,6 @@ class GalleryActivity : AppCompatActivity() {
     private val resultGallery33 = registerForActivityResult(PickVisualMedia()) { uri ->
         if (uri != null) {
             viewModel.setImageFile(this, uri)
-        } else {
-            val msg = R.string.toast_failed_load_image_gallery
-            showSnackbarError(msg)
         }
     }
 
