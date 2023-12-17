@@ -14,6 +14,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import com.yoesuv.filepicker.TestData.delay
 import com.yoesuv.filepicker.menu.main.views.MainActivity
+import com.yoesuv.filepicker.utils.isTiramisu
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -56,30 +57,40 @@ class PickerGalleryTest {
         onView(withId(R.id.buttonOpenGallery)).perform(click())
         SystemClock.sleep(delay)
         SystemClock.sleep(delay)
-        val allowPermission = UiDevice.getInstance(instrumentation).findObject(
-            UiSelector().text("Allow")
-        )
-        if (allowPermission.exists()) {
-            allowPermission.click()
-            SystemClock.sleep(delay)
-            // open gallery
-            val gallery = UiDevice.getInstance(instrumentation).findObject(
-                UiSelector().text("Gallery")
+        if (!isTiramisu()) {
+            val allowPermission = UiDevice.getInstance(instrumentation).findObject(
+                UiSelector().text("Allow")
             )
-            if (gallery.exists()) {
-                gallery.click()
+            if (allowPermission.exists()) {
+                allowPermission.click()
                 SystemClock.sleep(delay)
-                val always = UiDevice.getInstance(instrumentation).findObject(
-                    UiSelector().text("Always")
+                // open gallery
+                val gallery = UiDevice.getInstance(instrumentation).findObject(
+                    UiSelector().text("Gallery")
                 )
-                if (always.exists()) {
-                    always.click()
+                val download = UiDevice.getInstance(instrumentation).findObject(
+                    UiSelector().text("Download")
+                )
+                if (gallery.exists()) {
+                    gallery.click()
                     SystemClock.sleep(delay)
-                    device.pressBack()
+                    val always = UiDevice.getInstance(instrumentation).findObject(
+                        UiSelector().text("Always")
+                    )
+                    if (always.exists()) {
+                        always.click()
+                        SystemClock.sleep(delay)
+                        device.pressBack()
+                    }
+                } else if (download.exists()) {
+                    if (download.exists()) {
+                        download.click()
+                        SystemClock.sleep(delay)
+                    }
                 }
+                SystemClock.sleep(delay)
+                device.pressBack()
             }
-            SystemClock.sleep(delay)
-            device.pressBack()
         }
         SystemClock.sleep(delay)
         device.pressBack()
