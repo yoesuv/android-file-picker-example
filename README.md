@@ -25,3 +25,4 @@ execute android test `./gradlew connectedForTestDebugAndroidTest`
 - [proandroiddev](https://proandroiddev.com/how-to-optimize-memory-consumption-when-using-glide-9ac984cfe70f)
 - [Alexzh](https://alexzh.com/ui-testing-of-android-runtime-permissions/)
 - [Media Recorder](https://developer.android.com/guide/topics/media/mediarecorder)
+- [Android Developer Blog](https://android-developers.googleblog.com/2023/08/choosing-right-storage-experience.html)
