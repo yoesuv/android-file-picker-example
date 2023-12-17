@@ -4,8 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -22,17 +23,16 @@ class GalleryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGalleryBinding
     private val viewModel: GalleryViewModel by viewModels()
 
-    private val permissionGallery =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
-            if (result) {
-                openGallery()
-            } else {
-                val msg = R.string.rationale_media_images
-                showSnackbarError(msg)
-            }
+    private val permissionGallery = registerForActivityResult(RequestPermission()) { result ->
+        if (result) {
+            openGallery()
+        } else {
+            val msg = R.string.rationale_media_images
+            showSnackbarError(msg)
         }
+    }
 
-    private val resultGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val resultGallery = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val uriData = result.data?.data
             viewModel.setImageFile(this, uriData)
