@@ -40,6 +40,7 @@
     <string name="toast_success_get_location">Success Get Location</string>
     <string name="toast_failed_get_location">Failed Get Location</string>
     <string name="toast_failed_get_image_camera">Failed Get Image from Camera</string>
+    <string name="toast_failed_load_image_gallery">Failed Load Image from Gallery</string>
     <string name="toast_record_failed">Failed Record Audio</string>
     <string name="toast_play_record_failed">Failed Play Audio Record</string>
     <string name="toast_request_permission_failed">Request Permission Failed</string>

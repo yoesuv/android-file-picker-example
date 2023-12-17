@@ -3,7 +3,9 @@ package com.yoesuv.filepicker.menu.gallery.views
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -28,7 +30,11 @@ class GalleryActivity : AppCompatActivity() {
     private val permissionGallery =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
             if (result) {
-                openGallery()
+                if (isTiramisu()) {
+                    openGallery33()
+                } else {
+                    openGallery()
+                }
             } else {
                 val msg1 = R.string.rationale_media_images
                 val msg2 = R.string.rationale_read_storage_gallery
@@ -38,8 +44,16 @@ class GalleryActivity : AppCompatActivity() {
     private val resultGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val uriData = result.data?.data
-            logDebug("GalleryActivity # uri : $uriData")
             viewModel.setImageFile(this, uriData)
+        }
+    }
+
+    private val resultGallery33 = registerForActivityResult(PickVisualMedia()) { uri ->
+        if (uri != null) {
+            viewModel.setImageFile(this, uri)
+        } else {
+            val msg = R.string.toast_failed_load_image_gallery
+            showSnackbarError(msg)
         }
     }
 
@@ -94,18 +108,16 @@ class GalleryActivity : AppCompatActivity() {
     private fun setupButton() {
         binding.buttonOpenGallery.setOnClickListener {
             if (isUpsideDown()) {
-                if (hasPermission(this, PERM_READ_MEDIA_IMAGES)) {
-                    openGallery()
+                if (hasPermission(this, PERM_MEDIA_VISUAL_USER_SELECTED)) {
+                    openGallery33()
+                } else if (hasPermission(this, PERM_READ_MEDIA_IMAGES)) {
+                    openGallery33()
                 } else {
                     permissionGallery34.launch(arrayOf(PERM_READ_MEDIA_IMAGES, PERM_MEDIA_VISUAL_USER_SELECTED))
                 }
             } else {
                 val thePermission = if (isTiramisu()) PERM_READ_MEDIA_IMAGES else PERM_READ_EXTERNAL_STORAGE
-                if (hasPermission(this, thePermission)) {
-                    openGallery()
-                } else {
-                    permissionGallery.launch(thePermission)
-                }
+                permissionGallery.launch(thePermission)
             }
         }
     }
@@ -114,6 +126,10 @@ class GalleryActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         resultGallery.launch(intent)
+    }
+
+    private fun openGallery33() {
+        resultGallery33.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
     }
 
     private fun observeData() {
