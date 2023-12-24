@@ -14,7 +14,7 @@ import com.yoesuv.filepicker.data.RecordingState
 import com.yoesuv.filepicker.databinding.ActivityRecordAudioBinding
 import com.yoesuv.filepicker.menu.record.viewmodels.RecordAudioViewModel
 import com.yoesuv.filepicker.utils.isPieOrLower
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 
 class RecordAudioActivity : AppCompatActivity() {
 
@@ -26,7 +26,7 @@ class RecordAudioActivity : AppCompatActivity() {
             viewModel.startRecording(this)
         } else {
             val msg = R.string.toast_permission_record_audio_denied
-            showToastError(msg)
+            showSnackbarError(msg)
         }
     }
     private val requestRecordAndWrite =
@@ -35,7 +35,7 @@ class RecordAudioActivity : AppCompatActivity() {
                 viewModel.startRecording(this)
             } else {
                 val msg = R.string.toast_permission_record_audio_and_write_denied
-                showToastError(msg)
+                showSnackbarError(msg)
             }
         }
 

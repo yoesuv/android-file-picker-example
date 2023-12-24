@@ -1,6 +1,7 @@
 package com.yoesuv.filepicker
 
 import android.content.Context
+import android.graphics.Rect
 import android.os.SystemClock
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -14,6 +15,8 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import com.yoesuv.filepicker.TestData.delay
 import com.yoesuv.filepicker.menu.main.views.MainActivity
+import com.yoesuv.filepicker.utils.isTiramisu
+import com.yoesuv.filepicker.utils.logDebug
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -21,6 +24,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -56,33 +60,58 @@ class PickerGalleryTest {
         onView(withId(R.id.buttonOpenGallery)).perform(click())
         SystemClock.sleep(delay)
         SystemClock.sleep(delay)
-        val allowPermission = UiDevice.getInstance(instrumentation).findObject(
-            UiSelector().text("Allow")
-        )
-        if (allowPermission.exists()) {
-            allowPermission.click()
-            SystemClock.sleep(delay)
-            // open gallery
-            val gallery = UiDevice.getInstance(instrumentation).findObject(
-                UiSelector().text("Gallery")
+        if (!isTiramisu()) {
+            val allowPermission = UiDevice.getInstance(instrumentation).findObject(
+                UiSelector().text("Allow")
             )
-            if (gallery.exists()) {
-                gallery.click()
+            if (allowPermission.exists()) {
+                allowPermission.click()
                 SystemClock.sleep(delay)
-                val always = UiDevice.getInstance(instrumentation).findObject(
-                    UiSelector().text("Always")
+                // open gallery
+                val gallery = UiDevice.getInstance(instrumentation).findObject(
+                    UiSelector().text("Gallery")
                 )
-                if (always.exists()) {
-                    always.click()
+                val download = UiDevice.getInstance(instrumentation).findObject(
+                    UiSelector().text("Download")
+                )
+                if (gallery.exists()) {
+                    gallery.click()
                     SystemClock.sleep(delay)
-                    device.pressBack()
+                    val always = UiDevice.getInstance(instrumentation).findObject(
+                        UiSelector().text("Always")
+                    )
+                    if (always.exists()) {
+                        always.click()
+                        SystemClock.sleep(delay)
+                        device.pressBack()
+                    }
+                } else if (download.exists()) {
+                    if (download.exists()) {
+                        download.click()
+                        SystemClock.sleep(delay)
+                    }
                 }
+                SystemClock.sleep(delay)
+                device.pressBack()
+                SystemClock.sleep(delay)
+                device.pressBack()
             }
-            SystemClock.sleep(delay)
-            device.pressBack()
+        } else {
+            val recent = UiDevice.getInstance(instrumentation).findObject(
+                UiSelector().textContains("Recent")
+            )
+            if (recent.exists()) {
+                recent.click()
+                val bounds: Rect = recent.bounds
+                val left = bounds.left
+                val bottom = bounds.bottom
+                logDebug("PickerGalleryTest # pickFromGallery LEFT: $left BOTTOM: $bottom")
+                device.click((left + 100), (bottom + 250))
+                SystemClock.sleep(delay)
+                SystemClock.sleep(delay)
+                SystemClock.sleep(delay)
+                device.pressBack()
+            }
         }
-        SystemClock.sleep(delay)
-        device.pressBack()
-        SystemClock.sleep(delay)
     }
 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.RecordingState
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 import java.io.IOException
 import java.util.Timer
 import kotlin.concurrent.timerTask
@@ -63,7 +63,7 @@ class RecordAudioViewModel : ViewModel() {
                 } catch (e: IOException) {
                     timer?.cancel()
                     e.printStackTrace()
-                    activity.showToastError(R.string.toast_record_failed)
+                    activity.showSnackbarError(R.string.toast_record_failed)
                 }
                 start()
             }
@@ -101,7 +101,7 @@ class RecordAudioViewModel : ViewModel() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                     isPlaying.postValue(false)
-                    activity.showToastError(R.string.toast_play_record_failed)
+                    activity.showSnackbarError(R.string.toast_play_record_failed)
                 }
             }
             player?.setOnCompletionListener {

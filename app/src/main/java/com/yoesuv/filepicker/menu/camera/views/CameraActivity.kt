@@ -13,7 +13,7 @@ import com.yoesuv.filepicker.data.PERM_CAMERA
 import com.yoesuv.filepicker.databinding.ActivityCameraBinding
 import com.yoesuv.filepicker.menu.camera.viewmodels.CameraViewModel
 import com.yoesuv.filepicker.utils.hasPermission
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 
 class CameraActivity : AppCompatActivity() {
 
@@ -26,7 +26,7 @@ class CameraActivity : AppCompatActivity() {
             openCamera()
         } else {
             val msg = R.string.rationale_open_camera
-            showToastError(msg)
+            showSnackbarError(msg)
         }
     }
     private val resultCamera = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->

@@ -3,41 +3,45 @@ package com.yoesuv.filepicker.menu.gallery.views
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.PERM_READ_EXTERNAL_STORAGE
-import com.yoesuv.filepicker.data.PERM_READ_MEDIA_IMAGES
 import com.yoesuv.filepicker.databinding.ActivityGalleryBinding
 import com.yoesuv.filepicker.menu.gallery.viewmodels.GalleryViewModel
-import com.yoesuv.filepicker.utils.hasPermission
 import com.yoesuv.filepicker.utils.isTiramisu
-import com.yoesuv.filepicker.utils.logDebug
-import com.yoesuv.filepicker.utils.showToastError
+import com.yoesuv.filepicker.utils.showSnackbarError
 
 class GalleryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGalleryBinding
     private val viewModel: GalleryViewModel by viewModels()
 
-    private val permissionGallery =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
-            if (result) {
-                openGallery()
-            } else {
-                val msg1 = R.string.rationale_media_images
-                val msg2 = R.string.rationale_read_storage_gallery
-                showToastError(if (isTiramisu()) msg1 else msg2)
-            }
+    private val permissionGallery = registerForActivityResult(RequestPermission()) { result ->
+        if (result) {
+            openGallery()
+        } else {
+            val msg = R.string.rationale_media_images
+            showSnackbarError(msg)
         }
-    private val resultGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    }
+
+    private val resultGallery = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val uriData = result.data?.data
-            logDebug("GalleryActivity # uri : $uriData")
             viewModel.setImageFile(this, uriData)
+        }
+    }
+
+    private val resultGallery33 = registerForActivityResult(PickVisualMedia()) { uri ->
+        if (uri != null) {
+            viewModel.setImageFile(this, uri)
         }
     }
 
@@ -65,12 +69,11 @@ class GalleryActivity : AppCompatActivity() {
     }
 
     private fun setupButton() {
-        val thePermission = if (isTiramisu()) PERM_READ_MEDIA_IMAGES else PERM_READ_EXTERNAL_STORAGE
         binding.buttonOpenGallery.setOnClickListener {
-            if (hasPermission(this, thePermission)) {
-                openGallery()
+            if (isTiramisu()) {
+                openGallery33()
             } else {
-                permissionGallery.launch(thePermission)
+                permissionGallery.launch(PERM_READ_EXTERNAL_STORAGE)
             }
         }
     }
@@ -79,6 +82,10 @@ class GalleryActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         resultGallery.launch(intent)
+    }
+
+    private fun openGallery33() {
+        resultGallery33.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
     }
 
     private fun observeData() {

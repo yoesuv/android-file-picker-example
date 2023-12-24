@@ -22,7 +22,7 @@ class FileActivity : AppCompatActivity() {
         if (isGranted) {
             openFilePicker()
         } else {
-            showToastError(R.string.toast_permission_read_storage_denied)
+            showSnackbarError(R.string.toast_permission_read_storage_denied)
         }
     }
 

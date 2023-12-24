@@ -1,7 +1,7 @@
 ## Android Picker/Chooser & Permission ##
 
 Pick image,file,photo, location & recording in android, also permission.  
-download apk [here](https://www.dropbox.com/s/hckf8s6s2zwrgh9)  
+download apk [here](https://e.pcloud.link/publink/show?code=XZ8yP1ZIcva3YqkdvHfGFxKB8GeALD1GDuk)  
 execute android test `./gradlew connectedForTestDebugAndroidTest`
 
 #### Screenshot ####
@@ -15,7 +15,6 @@ execute android test `./gradlew connectedForTestDebugAndroidTest`
 - [Glide](https://github.com/bumptech/glide)
 - [OkHttp](https://github.com/square/okhttp)
 - [Retrofit](https://github.com/square/retrofit)
-- [Toasty](https://github.com/GrenderG/Toasty)
 
 #### References ####
 - [Stackoverflow](https://stackoverflow.com/a/65763144/3559183)
@@ -26,3 +25,4 @@ execute android test `./gradlew connectedForTestDebugAndroidTest`
 - [proandroiddev](https://proandroiddev.com/how-to-optimize-memory-consumption-when-using-glide-9ac984cfe70f)
 - [Alexzh](https://alexzh.com/ui-testing-of-android-runtime-permissions/)
 - [Media Recorder](https://developer.android.com/guide/topics/media/mediarecorder)
+- [Android Developer Blog](https://android-developers.googleblog.com/2023/08/choosing-right-storage-experience.html)

@@ -6,11 +6,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 
-class DownloadRepository(private val scope: CoroutineScope): SafeApiRequest() {
+class DownloadRepository(private val scope: CoroutineScope) : SafeApiRequest() {
 
     private val restApi = ServiceFactory.getApiService(BASE_URL, RestApiDownload::class.java)
 
-    fun downloadFile(link: String, onSuccess:(ResponseBody?) -> Unit, onError:(Exception) -> Unit) {
+    fun downloadFile(link: String, onSuccess: (ResponseBody?) -> Unit, onError: (Exception) -> Unit) {
         scope.launch {
             try {
                 val result = apiRequest { restApi.downloadFile(link) }
