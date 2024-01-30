@@ -42,4 +42,9 @@ class MainViewModel: ViewModel() {
         ctx.startActivity(Intent(ctx, RecordAudioActivity::class.java))
     }
 
+    fun clickNotification(view: View) {
+        val ctx = view.context
+        ctx.startActivity(Intent(ctx, RecordAudioActivity::class.java))
+    }
+
 }

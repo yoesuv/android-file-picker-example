@@ -14,6 +14,7 @@
     <string name="button_start_record">Start</string>
     <string name="button_pause_record">Pause</string>
     <string name="button_resume_record">Resume</string>
+    <string name="button_notification">Notification</string>
 
     <string name="select_an_image">Select an image</string>
     <string name="take_a_picture">Take a Picture</string>
