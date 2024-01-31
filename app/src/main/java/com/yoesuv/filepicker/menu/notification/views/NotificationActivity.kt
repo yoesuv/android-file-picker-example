@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
+import com.yoesuv.filepicker.data.NotificationType
 import com.yoesuv.filepicker.data.PERM_POST_NOTIFICATION
 import com.yoesuv.filepicker.databinding.ActivityNotificationBinding
 import com.yoesuv.filepicker.menu.notification.viewmodels.NotificationViewModel
@@ -18,10 +19,15 @@ class NotificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNotificationBinding
     private val viewModel: NotificationViewModel by viewModels()
+    private var type: NotificationType = NotificationType.NORMAL
 
     private val requestPost = registerForActivityResult(RequestPermission()) { result ->
         if (result) {
-            viewModel.normalNotification(this)
+            if (type == NotificationType.NORMAL) {
+                viewModel.normalNotification(this)
+            } else {
+                viewModel.customSoundNotification(this)
+            }
         } else {
             val msg = R.string.toast_push_permission_denied
             showSnackbarError(msg)
@@ -53,13 +59,19 @@ class NotificationActivity : AppCompatActivity() {
     private fun setupButton() {
         binding.buttonNormalNotification.setOnClickListener {
             if (isTiramisu()) {
+                type = NotificationType.NORMAL
                 requestPost.launch(PERM_POST_NOTIFICATION)
             } else {
                 viewModel.normalNotification(this)
             }
         }
         binding.buttonCustomSoundNotification.setOnClickListener {
-            viewModel.customSoundNotification(this)
+            if (isTiramisu()) {
+                type = NotificationType.CUSTOM_SOUND
+                requestPost.launch(PERM_POST_NOTIFICATION)
+            } else {
+                viewModel.customSoundNotification(this)
+            }
         }
     }
 
