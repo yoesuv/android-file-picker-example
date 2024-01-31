@@ -17,7 +17,7 @@ class NotificationViewModel : ViewModel() {
         val title = context.getString(R.string.button_normal_notification)
         val content = context.getString(R.string.lorem_ipsum_short)
         val nBuilder = NotificationCompat.Builder(context, CHANNEL_ID_NORMAL)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_small_favorite_border)
             .setContentTitle(title)
             .setContentText(content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
