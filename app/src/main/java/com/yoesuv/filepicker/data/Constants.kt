@@ -20,3 +20,5 @@ const val DOWNLOAD_LINK_FULL = "https://raw.githubusercontent.com/yoesuv/GetX-Pl
 const val COMPRESSOR_QUALITY = 90
 const val COMPRESSOR_WIDTH = 1224
 const val COMPRESSOR_HEIGHT = 1632
+
+const val CHANNEL_ID_NORMAL = "channel_id_normal"

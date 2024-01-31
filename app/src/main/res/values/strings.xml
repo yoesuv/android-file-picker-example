@@ -47,4 +47,6 @@
     <string name="toast_play_record_failed">Failed Play Audio Record</string>
     <string name="toast_request_permission_failed">Request Permission Failed</string>
     <string name="toast_push_permission_denied">Permission Push Notification Denied</string>
+
+    <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 </resources>

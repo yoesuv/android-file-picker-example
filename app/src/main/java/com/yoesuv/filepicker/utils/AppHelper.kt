@@ -51,6 +51,10 @@ fun isPieOrLower(): Boolean {
     return Build.VERSION.SDK_INT <= Build.VERSION_CODES.P
 }
 
+fun isOreo(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+}
+
 fun forTest(): Boolean {
     return BuildConfig.FLAVOR.equals("forTest", true)
 }
