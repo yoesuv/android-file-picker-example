@@ -12,6 +12,18 @@ import com.yoesuv.filepicker.utils.isOreo
 
 class NotificationViewModel : ViewModel() {
 
+    private lateinit var nManager: NotificationManagerCompat
+    fun init(context: Context) {
+        nManager = NotificationManagerCompat.from(context)
+        if (isOreo()) {
+            val channel = NotificationChannelCompat.Builder(
+                CHANNEL_ID_NORMAL,
+                NotificationManagerCompat.IMPORTANCE_DEFAULT
+            ).setName("normal notification channel")
+            nManager.createNotificationChannel(channel.build())
+        }
+    }
+
     @SuppressLint("MissingPermission")
     fun normalNotification(context: Context) {
         val title = context.getString(R.string.button_normal_notification)
@@ -22,15 +34,6 @@ class NotificationViewModel : ViewModel() {
             .setContentText(content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
-
-        val nManager = NotificationManagerCompat.from(context)
-        if (isOreo()) {
-            val channel = NotificationChannelCompat.Builder(
-                CHANNEL_ID_NORMAL,
-                NotificationManagerCompat.IMPORTANCE_DEFAULT
-            ).setName("normal notification channel")
-            nManager.createNotificationChannel(channel.build())
-        }
         nManager.notify(1, nBuilder)
     }
 

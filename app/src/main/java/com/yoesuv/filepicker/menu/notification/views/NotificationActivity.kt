@@ -33,6 +33,7 @@ class NotificationActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
         binding.lifecycleOwner = this
         binding.notification = viewModel
+        viewModel.init(this)
 
         setupToolbar()
         setupButton()
