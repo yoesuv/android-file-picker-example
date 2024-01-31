@@ -22,3 +22,4 @@ const val COMPRESSOR_WIDTH = 1224
 const val COMPRESSOR_HEIGHT = 1632
 
 const val CHANNEL_ID_NORMAL = "channel_id_normal"
+const val CHANNEL_ID_SOUND = "channel_id_sound"

@@ -33,7 +33,6 @@ class NotificationActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
         binding.lifecycleOwner = this
         binding.notification = viewModel
-        viewModel.init(this)
 
         setupToolbar()
         setupButton()
@@ -58,6 +57,9 @@ class NotificationActivity : AppCompatActivity() {
             } else {
                 viewModel.normalNotification(this)
             }
+        }
+        binding.buttonCustomSoundNotification.setOnClickListener {
+            viewModel.customSoundNotification(this)
         }
     }
 
