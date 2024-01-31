@@ -22,6 +22,16 @@
             android:text="@string/button_normal_notification"
             android:textSize="@dimen/button_text_size" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCustomSoundNotification"
+            style="@style/ButtonTheme"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="@string/button_custom_sound_notification"
+            android:textSize="@dimen/button_text_size" />
+
     </LinearLayout>
 
 </layout>
