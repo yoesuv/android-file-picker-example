@@ -46,4 +46,5 @@
     <string name="toast_record_failed">Failed Record Audio</string>
     <string name="toast_play_record_failed">Failed Play Audio Record</string>
     <string name="toast_request_permission_failed">Request Permission Failed</string>
+    <string name="toast_push_permission_denied">Permission Push Notification Denied</string>
 </resources>
