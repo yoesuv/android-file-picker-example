@@ -14,7 +14,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 6
-        versionName = "2.4.1"
+        versionName = "2.4.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments += mapOf(
@@ -44,7 +44,7 @@ android {
     productFlavors {
         create("forTest") {
             resValue("string", "app_name", "Picker & Permission TEST")
-            versionNameSuffix = ".test"
+            applicationIdSuffix = ".test"
         }
         create("production") {
             resValue("string", "app_name", "Picker & Permission")
