@@ -6,25 +6,29 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <!-- write external for SDK <= 28 (Android 9)-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        android:minSdkVersion="33" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:requestLegacyExternalStorage="true"
         tools:ignore="LockedOrientationActivity">
 
         <provider
@@ -38,7 +42,8 @@
         </provider>
 
 
-        <activity android:name=".menu.main.views.MainActivity"
+        <activity
+            android:name=".menu.main.views.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -48,23 +53,33 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".menu.gallery.views.GalleryActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".menu.gallery.views.GalleryActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".menu.camera.views.CameraActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".menu.camera.views.CameraActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".menu.file.views.FileActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".menu.file.views.FileActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".menu.location.views.LocationActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".menu.location.views.LocationActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".menu.download.views.DownloadActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".menu.download.views.DownloadActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".menu.record.views.RecordAudioActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".menu.record.views.RecordAudioActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".menu.notification.views.NotificationActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

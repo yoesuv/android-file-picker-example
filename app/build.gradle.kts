@@ -14,7 +14,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 6
-        versionName = "2.4.1"
+        versionName = "2.4.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments += mapOf(
@@ -44,7 +44,7 @@ android {
     productFlavors {
         create("forTest") {
             resValue("string", "app_name", "Picker & Permission TEST")
-            versionNameSuffix = ".test"
+            applicationIdSuffix = ".test"
         }
         create("production") {
             resValue("string", "app_name", "Picker & Permission")
@@ -81,9 +81,9 @@ dependencies {
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0-alpha02")
     androidTestUtil("androidx.test:orchestrator:1.4.2")
 
-    implementation("androidx.activity:activity-ktx:1.8.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("com.google.android.gms:play-services-location:21.1.0")
 
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")

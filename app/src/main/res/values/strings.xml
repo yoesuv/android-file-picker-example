@@ -14,6 +14,9 @@
     <string name="button_start_record">Start</string>
     <string name="button_pause_record">Pause</string>
     <string name="button_resume_record">Resume</string>
+    <string name="button_notification">Notification</string>
+    <string name="button_normal_notification">Normal Notification</string>
+    <string name="button_custom_sound_notification">Custom Sound Notification</string>
 
     <string name="select_an_image">Select an image</string>
     <string name="take_a_picture">Take a Picture</string>
@@ -44,4 +47,7 @@
     <string name="toast_record_failed">Failed Record Audio</string>
     <string name="toast_play_record_failed">Failed Play Audio Record</string>
     <string name="toast_request_permission_failed">Request Permission Failed</string>
+    <string name="toast_push_permission_denied">Permission Push Notification Denied</string>
+
+    <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 </resources>

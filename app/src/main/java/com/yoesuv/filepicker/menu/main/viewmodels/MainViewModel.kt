@@ -8,6 +8,7 @@ import com.yoesuv.filepicker.menu.download.views.DownloadActivity
 import com.yoesuv.filepicker.menu.file.views.FileActivity
 import com.yoesuv.filepicker.menu.gallery.views.GalleryActivity
 import com.yoesuv.filepicker.menu.location.views.LocationActivity
+import com.yoesuv.filepicker.menu.notification.views.NotificationActivity
 import com.yoesuv.filepicker.menu.record.views.RecordAudioActivity
 
 class MainViewModel: ViewModel() {
@@ -40,6 +41,11 @@ class MainViewModel: ViewModel() {
     fun clickAudio(view: View) {
         val ctx = view.context
         ctx.startActivity(Intent(ctx, RecordAudioActivity::class.java))
+    }
+
+    fun clickNotification(view: View) {
+        val ctx = view.context
+        ctx.startActivity(Intent(ctx, NotificationActivity::class.java))
     }
 
 }
