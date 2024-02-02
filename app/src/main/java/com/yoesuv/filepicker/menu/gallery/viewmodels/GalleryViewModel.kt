@@ -16,7 +16,7 @@ import java.io.File
 
 class GalleryViewModel: ViewModel() {
 
-    var imagePath: MutableLiveData<String> = MutableLiveData()
+    var imagePath: MutableLiveData<String?> = MutableLiveData()
     var imageFile: MutableLiveData<File> = MutableLiveData()
 
     fun setImageFile(context: Context, uri: Uri?) {
