@@ -63,14 +63,11 @@ android {
 }
 
 dependencies {
-    val kotlinVersion: String by project
-    val retrofitVersion: String by project
-    val glideVersion: String by project
-
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
     implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
 
     testImplementation("junit:junit:4.13.2")
@@ -85,11 +82,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("com.google.android.gms:play-services-location:21.1.0")
 
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-    implementation("id.zelory:compressor:3.0.1")
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.okhttp3.logging)
+    implementation(libs.compressor)
 
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
-    ksp("com.github.bumptech.glide:ksp:$glideVersion")
+    implementation(libs.glide)
+    implementation(libs.glide.ksp)
 }
