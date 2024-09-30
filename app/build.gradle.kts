@@ -78,9 +78,9 @@ dependencies {
     androidTestImplementation(libs.androidx.test.uiautomator)
     androidTestUtil(libs.androidx.test.orchestrator)
 
-    implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.viewmodel.ktx)
+    implementation(libs.play.services.location)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
