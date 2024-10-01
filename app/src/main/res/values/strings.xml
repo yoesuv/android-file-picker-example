@@ -15,6 +15,8 @@
     <string name="button_pause_record">Pause</string>
     <string name="button_resume_record">Resume</string>
     <string name="button_notification">Notification</string>
+    <string name="button_date_time">Date Time</string>
+    <string name="button_open_date_picker">Select Date</string>
     <string name="button_normal_notification">Normal Notification</string>
     <string name="button_custom_sound_notification">Custom Sound Notification</string>
 

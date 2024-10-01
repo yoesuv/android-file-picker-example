@@ -82,6 +82,14 @@
                 android:textSize="@dimen/button_text_size"
                 android:onClick="@{main::clickNotification}"/>
 
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonTheme"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="wrap_content"
+                android:text="@string/button_date_time"
+                android:textSize="@dimen/button_text_size"
+                android:onClick="@{main::clickDateTime}"/>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
