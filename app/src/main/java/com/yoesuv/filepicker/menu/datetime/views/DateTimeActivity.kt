@@ -3,21 +3,25 @@ package com.yoesuv.filepicker.menu.datetime.views
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.databinding.ActivityDateTimeBinding
+import com.yoesuv.filepicker.menu.datetime.viewmodels.DateTimeViewModel
 import com.yoesuv.filepicker.utils.logDebug
 import java.util.GregorianCalendar
 
 class DateTimeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDateTimeBinding
+    private val viewModel: DateTimeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_date_time)
         binding.lifecycleOwner = this
+        binding.dateTime = viewModel
 
         setupToolbar()
         setupButton()
@@ -36,6 +40,9 @@ class DateTimeActivity : AppCompatActivity() {
     }
 
     private fun setupButton() {
+        binding.buttonGetCurrentDateTime.setOnClickListener {
+            viewModel.getCurrentDateTime()
+        }
         binding.buttonOpenDatePicker.setOnClickListener {
             val dialog = DatePickerDialog(this )
             dialog.setOnDateSetListener { _, year, monthOfYear, dayOfMonth ->
