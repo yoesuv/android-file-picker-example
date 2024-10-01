@@ -7,7 +7,8 @@ import java.time.LocalDateTime
 
 class DateTimeViewModel : ViewModel() {
 
-    var currentDateTimeValue = MutableLiveData("-")
+    var appCurrentDateTime = MutableLiveData("-")
+    var appCurrentDate = MutableLiveData("-")
 
     fun getCurrentDateTime() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -18,8 +19,14 @@ class DateTimeViewModel : ViewModel() {
             val hour = time.hour.toString().padStart(2, '0')
             val minute = time.minute.toString().padStart(2, '0')
             val second = time.second.toString().padStart(2, '0')
-            currentDateTimeValue.value = "$day/$month/$year $hour:$minute:$second"
+            appCurrentDateTime.value = "$day/$month/$year $hour:$minute:$second"
         }
+    }
+
+    fun setDate(year: Int, month: Int, day: Int) {
+        val d = day.toString().padStart(2, '0')
+        val m = month.toString().padStart(2, '0')
+        appCurrentDate.value = "$d/$m/$year"
     }
 
 }

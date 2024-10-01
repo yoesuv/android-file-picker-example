@@ -10,7 +10,6 @@ import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.databinding.ActivityDateTimeBinding
 import com.yoesuv.filepicker.menu.datetime.viewmodels.DateTimeViewModel
 import com.yoesuv.filepicker.utils.logDebug
-import java.util.GregorianCalendar
 
 class DateTimeActivity : AppCompatActivity() {
 
@@ -44,12 +43,10 @@ class DateTimeActivity : AppCompatActivity() {
             viewModel.getCurrentDateTime()
         }
         binding.buttonOpenDatePicker.setOnClickListener {
-            val dialog = DatePickerDialog(this )
+            val dialog = DatePickerDialog(this)
             dialog.setOnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 logDebug("DateTimeActivity # date $dayOfMonth month $monthOfYear year $year")
-                // convert to millis
-                val calendar = GregorianCalendar(year, monthOfYear, dayOfMonth)
-                val inMilis = calendar.timeInMillis
+                viewModel.setDate(year, monthOfYear, dayOfMonth)
             }
             dialog.show()
         }

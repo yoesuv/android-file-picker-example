@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="@{@string/current_date_time(dateTime.currentDateTimeValue)}"
+            android:text="@{@string/current_date_time(dateTime.appCurrentDateTime)}"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             tools:text="Current Date Time : 28/10/2024 14:59" />
@@ -39,9 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="@string/button_date_time"
+            android:text="@{@string/selected_date(dateTime.appCurrentDate)}"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="Selected Date : 28/10/2024" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonOpenDatePicker"
