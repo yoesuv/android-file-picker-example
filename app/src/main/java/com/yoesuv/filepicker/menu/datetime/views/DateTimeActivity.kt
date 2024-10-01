@@ -1,11 +1,14 @@
 package com.yoesuv.filepicker.menu.datetime.views
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.databinding.ActivityDateTimeBinding
+import com.yoesuv.filepicker.utils.logDebug
+import java.util.GregorianCalendar
 
 class DateTimeActivity : AppCompatActivity() {
 
@@ -17,6 +20,7 @@ class DateTimeActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         setupToolbar()
+        setupButton()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -29,6 +33,19 @@ class DateTimeActivity : AppCompatActivity() {
     private fun setupToolbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.button_date_time)
+    }
+
+    private fun setupButton() {
+        binding.buttonOpenDatePicker.setOnClickListener {
+            val dialog = DatePickerDialog(this )
+            dialog.setOnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                logDebug("DateTimeActivity # date $dayOfMonth month $monthOfYear year $year")
+                // convert to millis
+                val calendar = GregorianCalendar(year, monthOfYear, dayOfMonth)
+                val inMilis = calendar.timeInMillis
+            }
+            dialog.show()
+        }
     }
 
 }
