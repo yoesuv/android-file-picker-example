@@ -9,6 +9,7 @@ class DateTimeViewModel : ViewModel() {
 
     var appCurrentDateTime = MutableLiveData("-")
     var appCurrentDate = MutableLiveData("-")
+    var appCurrentTime = MutableLiveData("-")
 
     fun getCurrentDateTime() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -27,6 +28,12 @@ class DateTimeViewModel : ViewModel() {
         val d = day.toString().padStart(2, '0')
         val m = month.toString().padStart(2, '0')
         appCurrentDate.value = "$d/$m/$year"
+    }
+
+    fun setTime(hour: Int, minute: Int) {
+        val h = hour.toString().padStart(2, '0')
+        val m = minute.toString().padStart(2, '0')
+        appCurrentTime.value = "$h:$m"
     }
 
 }

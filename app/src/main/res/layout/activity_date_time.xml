@@ -54,6 +54,26 @@
             android:text="@string/button_open_date_picker"
             android:textSize="@dimen/button_text_size" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="@{@string/selected_time(dateTime.appCurrentTime)}"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            tools:text="Selected Time : 07:30" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonOpenTimePicker"
+            style="@style/ButtonTheme"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="@string/button_open_time_picker"
+            android:textSize="@dimen/button_text_size" />
+
     </LinearLayout>
 
 </layout>

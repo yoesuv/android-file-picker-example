@@ -18,6 +18,7 @@
     <string name="button_date_time">Date Time</string>
     <string name="button_current_date_time">Current Date Time</string>
     <string name="button_open_date_picker">Select Date</string>
+    <string name="button_open_time_picker">Select Time</string>
     <string name="button_normal_notification">Normal Notification</string>
     <string name="button_custom_sound_notification">Custom Sound Notification</string>
 
@@ -29,6 +30,7 @@
     <string name="play_record">Play Record : %1$s</string>
     <string name="current_date_time">Current Date Time : %1$s</string>
     <string name="selected_date">Selected Date : %1$s</string>
+    <string name="selected_time">Selected Time : %1$s</string>
 
     <string name="rationale_read_storage_gallery">This app needs access to your storage to choose an image.</string>
     <string name="rationale_media_images">This app needs access to your media images to choose an image.</string>
