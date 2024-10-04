@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.time.LocalDateTime
+import java.util.Calendar
 
 class DateTimeViewModel : ViewModel() {
 
@@ -20,6 +21,15 @@ class DateTimeViewModel : ViewModel() {
             val hour = time.hour.toString().padStart(2, '0')
             val minute = time.minute.toString().padStart(2, '0')
             val second = time.second.toString().padStart(2, '0')
+            appCurrentDateTime.value = "$day/$month/$year $hour:$minute:$second"
+        } else {
+            val cal = Calendar.getInstance()
+            val day = cal.get(Calendar.DAY_OF_MONTH).toString().padStart(2, '0')
+            val month = cal.get(Calendar.MONTH).toString().padStart(2, '0')
+            val year = cal.get(Calendar.YEAR)
+            val hour = cal.get(Calendar.HOUR_OF_DAY).toString().padStart(2, '0')
+            val minute = cal.get(Calendar.MINUTE).toString().padStart(2, '0')
+            val second = cal.get(Calendar.SECOND).toString().padStart(2, '0')
             appCurrentDateTime.value = "$day/$month/$year $hour:$minute:$second"
         }
     }
