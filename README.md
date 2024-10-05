@@ -1,7 +1,7 @@
 ## Android Picker/Chooser & Permission ##
 
-Pick image,file,photo, location & recording in android, also permission.  
-download apk [here](https://e.pcloud.link/publink/show?code=XZ6Y3eZUPrCErOtrIuSuKe23vmjp761A5iV)  
+Pick image,file,photo, date time, location & recording in android, also permission.  
+download apk [here](https://e.pcloud.link/publink/show?code=XZmpQCZwTa1L3XwUdmXlU2xauSx4F5UBAVX)  
 execute android test `./gradlew connectedForTestDebugAndroidTest`
 
 #### Screenshot ####

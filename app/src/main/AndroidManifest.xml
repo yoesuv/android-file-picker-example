@@ -81,6 +81,10 @@
             android:name=".menu.notification.views.NotificationActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".menu.datetime.views.DateTimeActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

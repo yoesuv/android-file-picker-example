@@ -82,7 +82,9 @@ class CameraActivity : AppCompatActivity() {
 
     private fun openCamera() {
         photoUri = viewModel.uriCamera(this)
-        resultCamera.launch(photoUri)
+        photoUri?.let {
+            resultCamera.launch(it)
+        }
     }
 
 }
