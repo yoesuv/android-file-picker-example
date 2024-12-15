@@ -23,8 +23,14 @@
     </style>
 
     <style name="Theme.Custom.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="theme">@style/Theme.Custom.Toolbar.Overlay</item>
+        <item name="popupTheme">@style/ThemeOverlay.Material3.Dark</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.Custom.Toolbar.Overlay" parent="ThemeOverlay.Material3.Dark">
         <item name="titleTextColor">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
 </resources>
