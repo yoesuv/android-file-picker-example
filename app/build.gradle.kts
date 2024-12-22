@@ -47,6 +47,7 @@ android {
             applicationIdSuffix = ".test"
         }
         create("production") {
+            isDefault = true
             resValue("string", "app_name", "Picker & Permission")
         }
     }
