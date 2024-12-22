@@ -6,7 +6,7 @@
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="snackbarStyle">@style/Widget.MyApp.Snackbar</item>
         <item name="toolbarStyle">@style/Theme.Custom.Toolbar</item>
     </style>
