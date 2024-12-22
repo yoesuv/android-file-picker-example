@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.Material3.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="snackbarStyle">@style/Widget.MyApp.Snackbar</item>
+        <item name="toolbarStyle">@style/Theme.Custom.Toolbar</item>
+    </style>
+</resources>

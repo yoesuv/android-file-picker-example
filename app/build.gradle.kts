@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace = "com.yoesuv.filepicker"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.yoesuv.filepicker"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 7
-        versionName = "2.4.3"
+        targetSdk = 35
+        versionCode = 8
+        versionName = "2.4.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments += mapOf(
@@ -47,6 +47,7 @@ android {
             applicationIdSuffix = ".test"
         }
         create("production") {
+            isDefault = true
             resValue("string", "app_name", "Picker & Permission")
         }
     }

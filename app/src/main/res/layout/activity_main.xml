@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="main"
             type="com.yoesuv.filepicker.menu.main.viewmodels.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".menu.main.views.MainActivity">
@@ -18,77 +20,77 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMenuGallery"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickGallery}"
                 android:text="@string/button_gallery"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickGallery}"/>
+                android:textSize="@dimen/button_text_size" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMenuCamera"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickCamera}"
                 android:text="@string/button_camera"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickCamera}"/>
+                android:textSize="@dimen/button_text_size" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickFile}"
                 android:text="@string/button_file"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickFile}"/>
+                android:textSize="@dimen/button_text_size" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMenuLocation"
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickLocation}"
                 android:text="@string/button_location"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickLocation}"/>
+                android:textSize="@dimen/button_text_size" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickDownload}"
                 android:text="@string/button_download"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickDownload}"/>
+                android:textSize="@dimen/button_text_size" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickAudio}"
                 android:text="@string/button_record_audio"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickAudio}"/>
+                android:textSize="@dimen/button_text_size" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickNotification}"
                 android:text="@string/button_notification"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickNotification}"/>
+                android:textSize="@dimen/button_text_size" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ButtonTheme"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content"
+                android:onClick="@{main::clickDateTime}"
                 android:text="@string/button_date_time"
-                android:textSize="@dimen/button_text_size"
-                android:onClick="@{main::clickDateTime}"/>
+                android:textSize="@dimen/button_text_size" />
 
         </LinearLayout>
 
