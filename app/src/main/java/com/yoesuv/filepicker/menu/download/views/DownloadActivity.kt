@@ -64,6 +64,14 @@ class DownloadActivity : AppCompatActivity() {
                 viewModel.downloadFileSdk29(this)
             }
         }
+        binding.buttonDownloadFileKtor.setOnClickListener {
+            val sdkInt = Build.VERSION.SDK_INT
+            if (sdkInt <= Build.VERSION_CODES.P) {
+
+            } else {
+
+            }
+        }
     }
 
     private fun setupDownloadSDK28() {

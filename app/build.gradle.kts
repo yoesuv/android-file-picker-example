@@ -90,4 +90,5 @@ dependencies {
 
     implementation(libs.glide)
     implementation(libs.glide.ksp)
+    implementation(libs.ktor.android)
 }
