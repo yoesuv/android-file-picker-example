@@ -21,14 +21,15 @@ class DownloadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDownloadBinding
     private val viewModel: DownloadViewModel by viewModels()
 
-    private val permissionWrite = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
-        if (result) {
-            viewModel.downloadFile(this)
-        } else {
-            val msg = R.string.rationale_write_storage
-            showSnackbarError(msg)
+    private val permissionWrite =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+            if (result) {
+                viewModel.downloadFile(this)
+            } else {
+                val msg = R.string.rationale_write_storage
+                showSnackbarError(msg)
+            }
         }
-    }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,9 +68,9 @@ class DownloadActivity : AppCompatActivity() {
         binding.buttonDownloadFileKtor.setOnClickListener {
             val sdkInt = Build.VERSION.SDK_INT
             if (sdkInt <= Build.VERSION_CODES.P) {
-
+                setupDownloadSDK28()
             } else {
-
+                viewModel.downloadFileKtor(this)
             }
         }
     }
