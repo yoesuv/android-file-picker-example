@@ -16,12 +16,14 @@ import com.yoesuv.filepicker.R
 import com.yoesuv.filepicker.data.DOWNLOAD_LINK
 import com.yoesuv.filepicker.data.DOWNLOAD_LINK_FULL
 import com.yoesuv.filepicker.networks.DownloadRepository
+import com.yoesuv.filepicker.networks.KtorApiDownload
 import com.yoesuv.filepicker.utils.logError
 import com.yoesuv.filepicker.utils.showSnackbarError
 import com.yoesuv.filepicker.utils.showSnackbarSucces
+import kotlinx.coroutines.launch
 import java.io.File
 
-class DownloadViewModel: ViewModel() {
+class DownloadViewModel : ViewModel() {
 
     private val repoDownload = DownloadRepository(viewModelScope)
 
@@ -36,7 +38,8 @@ class DownloadViewModel: ViewModel() {
             val pathFile = folder.absolutePath + File.separator + fileName
             val fileResult = File(pathFile)
 
-            val downloadManager = activity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val downloadManager =
+                activity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             val request = DownloadManager.Request(Uri.parse(DOWNLOAD_LINK_FULL))
             request.setAllowedOverMetered(true)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
@@ -61,7 +64,8 @@ class DownloadViewModel: ViewModel() {
         val fileName = URLUtil.guessFileName(DOWNLOAD_LINK, null, null)
         repoDownload.downloadFile(DOWNLOAD_LINK, { body ->
             if (body != null) {
-                val fileCollection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+                val fileCollection =
+                    MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
                 val contentValues = ContentValues()
                 contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
                 val uri = activity.contentResolver.insert(fileCollection, contentValues)
@@ -81,6 +85,31 @@ class DownloadViewModel: ViewModel() {
             error.printStackTrace()
             activity.showSnackbarError(R.string.toast_download_failed)
         })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun downloadFileKtor(activity: Activity) {
+        val fileName = URLUtil.guessFileName(DOWNLOAD_LINK, null, null)
+        viewModelScope.launch {
+            val fileCollection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            val contentValues = ContentValues()
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+            val theFile = KtorApiDownload.downloadFile(activity, DOWNLOAD_LINK_FULL, fileName)
+            if (theFile != null) {
+                val uri = activity.contentResolver.insert(fileCollection, contentValues)
+                if (uri != null) {
+                    activity.contentResolver.update(uri, contentValues, null, null)
+                    val outputStream = activity.contentResolver.openOutputStream(uri, "rwt")
+                    outputStream?.write(theFile.readBytes())
+                    outputStream?.close()
+                    activity.showSnackbarSucces(R.string.toast_download_success)
+                } else {
+                    activity.showSnackbarError(R.string.toast_download_failed)
+                }
+            } else {
+                activity.showSnackbarError(R.string.toast_download_failed)
+            }
+        }
     }
 
 }

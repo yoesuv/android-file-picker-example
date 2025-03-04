@@ -8,7 +8,8 @@
     <string name="button_choose_file">Choose File</string>
     <string name="button_user_location">User Location</string>
     <string name="button_download">Download</string>
-    <string name="button_download_file">Download File</string>
+    <string name="button_download_file_retrofit">Download File Retrofit</string>
+    <string name="button_download_file_ktor">Download File Ktor</string>
     <string name="button_record_audio">Record Audio</string>
     <string name="button_stop_record">Stop</string>
     <string name="button_start_record">Start</string>

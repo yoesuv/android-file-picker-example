@@ -13,8 +13,8 @@ android {
         applicationId = "com.yoesuv.filepicker"
         minSdk = 24
         targetSdk = 35
-        versionCode = 8
-        versionName = "2.4.4"
+        versionCode = 9
+        versionName = "2.4.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments += mapOf(
@@ -90,4 +90,5 @@ dependencies {
 
     implementation(libs.glide)
     implementation(libs.glide.ksp)
+    implementation(libs.ktor.android)
 }

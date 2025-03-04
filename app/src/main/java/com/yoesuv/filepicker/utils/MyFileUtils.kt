@@ -3,9 +3,11 @@ package com.yoesuv.filepicker.utils
 import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
+import io.ktor.utils.io.ByteReadChannel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.io.OutputStream
 import java.text.DecimalFormat
 
 
@@ -54,5 +56,14 @@ fun copyToTempFile(inputStream: InputStream?, file: File) {
         outputStream.close()
     } catch (e: Exception) {
         e.printStackTrace()
+    }
+}
+
+suspend fun ByteReadChannel.copyTo(outputStream: OutputStream) {
+    val buffer = ByteArray(8192)
+    while (true) {
+        val read = readAvailable(buffer, 0, buffer.size)
+        if (read == -1) break
+        outputStream.write(buffer, 0, read)
     }
 }
