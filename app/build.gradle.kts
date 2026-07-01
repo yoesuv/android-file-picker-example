@@ -1,18 +1,22 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.yoesuv.filepicker"
-    compileSdk = 35
+    compileSdk {
+        version = release(36) {
+            minorApiLevel = 1
+        }
+    }
 
     defaultConfig {
         applicationId = "com.yoesuv.filepicker"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 9
         versionName = "2.4.5"
 
@@ -20,7 +24,6 @@ android {
         testInstrumentationRunnerArguments += mapOf(
             "clearPackageData" to "true",
         )
-        setProperty("archivesBaseName", "$applicationId-v$versionCode($versionName)")
     }
 
     buildTypes {
@@ -37,6 +40,7 @@ android {
     buildFeatures {
         dataBinding = true
         buildConfig = true
+        resValues = true
     }
     flavorDimensions += listOf(
         "environment",
@@ -58,8 +62,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 
@@ -89,6 +96,6 @@ dependencies {
     implementation(libs.compressor)
 
     implementation(libs.glide)
-    implementation(libs.glide.ksp)
+    ksp(libs.glide.ksp)
     implementation(libs.ktor.android)
 }
