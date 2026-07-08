@@ -2,35 +2,37 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="download"
             type="com.yoesuv.filepicker.menu.download.viewmodels.DownloadViewModel" />
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonDownloadFile"
             style="@style/ButtonTheme"
             android:layout_width="@dimen/button_download_width"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
             android:text="@string/button_download_file_retrofit"
-            android:textSize="@dimen/button_text_size"/>
+            android:textSize="@dimen/button_text_size" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonDownloadFileKtor"
             style="@style/ButtonTheme"
             android:layout_width="@dimen/button_download_width"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
             android:text="@string/button_download_file_ktor"
-            android:textSize="@dimen/button_text_size"/>
+            android:textSize="@dimen/button_text_size" />
 
     </LinearLayout>
 
