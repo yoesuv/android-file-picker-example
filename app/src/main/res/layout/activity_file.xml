@@ -12,49 +12,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{file.fileName}"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            tools:text="File Name : Sample_document.pdf" />
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{file.fileSize}"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            tools:text="File Size : 193 Kb" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvFilePath"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{file.filePath}"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            tools:text="/Storage/0/Download/sample_document.pdf" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{file.fileName}"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    tools:text="File Name : Sample_document.pdf" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonChooseFile"
-            style="@style/ButtonTheme"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="@string/button_choose_file"
-            android:textSize="@dimen/button_text_size" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{file.fileSize}"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    tools:text="File Size : 193 Kb" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvFilePath"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{file.filePath}"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    tools:text="/Storage/0/Download/sample_document.pdf" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonChooseFile"
+                    style="@style/ButtonTheme"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/button_choose_file"
+                    android:textSize="@dimen/button_text_size" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
