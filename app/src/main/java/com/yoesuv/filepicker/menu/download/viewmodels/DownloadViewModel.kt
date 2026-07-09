@@ -65,14 +65,20 @@ class DownloadViewModel : ViewModel() {
         repoDownload.downloadFile(DOWNLOAD_LINK, { body ->
             if (body != null) {
                 val fileCollection =
-                    MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+                    MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
                 val contentValues = ContentValues()
                 contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1)
                 val uri = activity.contentResolver.insert(fileCollection, contentValues)
                 if (uri != null) {
                     val outputStream = activity.contentResolver.openOutputStream(uri, "rwt")
                     outputStream?.write(body.bytes())
                     outputStream?.close()
+
+                    contentValues.clear()
+                    contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
+                    activity.contentResolver.update(uri, contentValues, null, null)
+
                     activity.showSnackbarSucces(R.string.toast_download_success)
                 } else {
                     activity.showSnackbarError(R.string.toast_download_failed)
@@ -91,17 +97,23 @@ class DownloadViewModel : ViewModel() {
     fun downloadFileKtor(activity: Activity) {
         val fileName = URLUtil.guessFileName(DOWNLOAD_LINK, null, null)
         viewModelScope.launch {
-            val fileCollection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            val fileCollection =
+                MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
             val contentValues = ContentValues()
             contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+            contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1)
             val theFile = KtorApiDownload.downloadFile(activity, DOWNLOAD_LINK_FULL, fileName)
             if (theFile != null) {
                 val uri = activity.contentResolver.insert(fileCollection, contentValues)
                 if (uri != null) {
-                    activity.contentResolver.update(uri, contentValues, null, null)
                     val outputStream = activity.contentResolver.openOutputStream(uri, "rwt")
                     outputStream?.write(theFile.readBytes())
                     outputStream?.close()
+
+                    contentValues.clear()
+                    contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
+                    activity.contentResolver.update(uri, contentValues, null, null)
+
                     activity.showSnackbarSucces(R.string.toast_download_success)
                 } else {
                     activity.showSnackbarError(R.string.toast_download_failed)

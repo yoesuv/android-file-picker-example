@@ -1,6 +1,5 @@
 [versions]
-agp = "8.8.2"
-kotlin = "1.9.24"
+agp = "9.2.1"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -10,8 +9,8 @@ material = "1.12.0"
 activity = "1.10.1"
 viewmodel = "2.8.7"
 constraintlayout = "2.2.1"
-ksp = "1.9.24-1.0.20"
-retrofit = "2.11.0"
+ksp = "2.2.10-2.0.2"
+retrofit = "3.0.0"
 okhttp3 = "4.12.0"
 glide = "4.16.0"
 compressor = "3.0.1"
@@ -19,8 +18,8 @@ rules = "1.6.1"
 runner = "1.6.2"
 uiAutomator = "2.3.0"
 orchestrator = "1.5.0"
-playServicesLocation = "21.3.0"
-ktor = "2.3.6"
+playServicesLocation = "21.4.0"
+ktor = "3.5.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +47,5 @@ ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 

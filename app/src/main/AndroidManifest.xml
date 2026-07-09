@@ -44,8 +44,7 @@
 
         <activity
             android:name=".menu.main.views.MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,37 +52,21 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".menu.gallery.views.GalleryActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.gallery.views.GalleryActivity" />
 
-        <activity
-            android:name=".menu.camera.views.CameraActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.camera.views.CameraActivity" />
 
-        <activity
-            android:name=".menu.file.views.FileActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.file.views.FileActivity" />
 
-        <activity
-            android:name=".menu.location.views.LocationActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.location.views.LocationActivity" />
 
-        <activity
-            android:name=".menu.download.views.DownloadActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.download.views.DownloadActivity" />
 
-        <activity
-            android:name=".menu.record.views.RecordAudioActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.record.views.RecordAudioActivity" />
 
-        <activity
-            android:name=".menu.notification.views.NotificationActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.notification.views.NotificationActivity" />
 
-        <activity
-            android:name=".menu.datetime.views.DateTimeActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".menu.datetime.views.DateTimeActivity" />
 
     </application>
 
